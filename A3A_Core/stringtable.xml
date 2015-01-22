@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ID="Arma3">
+	<Package ID="Missions">
+		<Container ID="A3RU_Base">
+			<Key ID="STR_A3RU_startTime">
+				<English>
+				Time of the day
+				</English>
+				<Russian>
+				Время Суток
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_startFog">
+				<English>
+				Fog
+				</English>
+				<Russian>
+				Туман
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_fog_1">
+				<English>
+				Light Fog, less 20m above surface
+				</English>
+				<Russian>
+				Легкий Туман, менее 20м над поверхностью
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_fog_2">
+				<English>
+				Light Fog, less 50m above surface
+				</English>
+				<Russian>
+				Легкий Туман, менее 50м над поверхностью
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_fog_3">
+				<English>
+				Light Fog, less 100m above surface
+				</English>
+				<Russian>
+				Легкий Туман, менее 100м над поверхностью
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_fog_4">
+				<English>
+				Strong Fog
+				</English>
+				<Russian>
+				Сильный туман
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_default">
+				<English>
+				Default
+				</English>
+				<Russian>
+				Стандарт
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_tags">
+				<English>
+				Player Tags
+				</English>
+				<Russian>
+				Тэги игроков
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_on">
+				<English>
+				On
+				</English>
+				<Russian>
+				Вкл
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_off">
+				<English>
+				Off
+				</English>
+				<Russian>
+				Выкл
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_preTime">
+				<English>
+				Prepare Time
+				</English>
+				<Russian>
+				Время подготовки
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_slotReservation">
+				<English>
+				Reserve Slots
+				</English>
+				<Russian>
+				Резервировать Слоты
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_spectatorSides">
+				<English>
+				Spectate sides
+				</English>
+				<Russian>
+				Стороны спектатора
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_spectatorOwnSide">
+				<English>
+				Own side
+				</English>
+				<Russian>
+				Только свои
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_spectatorAllSides">
+				<English>
+				All sides
+				</English>
+				<Russian>
+				Все стороны
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_Intel">
+				<English>
+				Mission intel
+				</English>
+				<Russian>
+				Обзор Задания
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_Info">
+				<English>
+				Mission Information
+				</English>
+				<Russian>
+				Информация о задании
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_Tasks">
+				<English>
+				Tasks
+				</English>
+				<Russian>
+				Задачи
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_Enemy">
+				<English>
+				Enemy
+				</English>
+				<Russian>
+				Противник
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_Additional">
+				<English>
+				Additional Information
+				</English>
+				<Russian>
+				Доп. Информация
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_ExAddons">
+				<English>
+				External Addons
+				</English>
+				<Russian>
+				Подключенные Аддоны
+				</Russian>
+			</Key>
+		</Container>
+		<Container ID="A3RU_WeaponSelect">
+			<Key ID="STR_A3RU_weap_primary">
+				<English>
+				Primary weapon
+				</English>
+				<Russian>
+				Основное оружие
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_weap_secondary">
+				<English>
+				Secondary
+				</English>
+				<Russian>
+				Гранатомет
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_weap_side">
+				<English>
+				Handgun
+				</English>
+				<Russian>
+				Пистолет
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_weap_mods">
+				<English>
+				Mods
+				</English>
+				<Russian>
+				Модули
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_weap_backpack">
+				<English>
+				Backpack
+				</English>
+				<Russian>
+				Рюкзак
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_weap_equip">
+				<English>
+				Take selected equipment
+				</English>
+				<Russian>
+				Взять выбранное оружие
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_weap_note">
+				<English>
+				You can take ONLY ONCE!
+				</English>
+				<Russian>
+				Можно выбрать только один раз!
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_weap_noweap">
+				<English>
+				No weapon
+				</English>
+				<Russian>
+				Оружие отсутствует
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_weap_notsel">
+				<English>
+				Nothing selected
+				</English>
+				<Russian>
+				Ничего не выбрано
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_leftZone">
+				<English>
+				%1 has left mission zone!
+				</English>
+				<Russian>
+				%1 покинул зону операции!
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_isDead">VIP targets has been killed on %1!
+				<English>
+				%1 eliminated!
+				</English>
+				<Russian>
+				%1 уничтожен!
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_targetsKilled">
+				<English>
+				All targets has been eliminated on %1!
+				</English>
+				<Russian>
+				Все цели были уничтожены на %1!
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_targetsKilled2">
+				<English>
+				All targets has been eliminated!
+				</English>
+				<Russian>
+				Все цели были уничтожены!
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_heavyLosses">
+				<English>
+				%1 had heavy losses. %2 WIN!
+				</English>
+				<Russian>
+				%1 понесли серьезные потери. Победа %2!
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_adminStarted">
+				<English>
+				Admin %1 started the game!
+				</English>
+				<Russian>
+				Администратор %1 запустил задание!
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_capturedZone">
+				<English>
+				%1 captured %2
+				</English>
+				<Russian>
+				%1 захватили %2
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_neutralizedZone">
+				<English>
+				%1 neutralised %2
+				</English>
+				<Russian>
+				%1 нейтрализовали %2
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_defendedZone">
+				<English>
+				%1 defended %2!
+				</English>
+				<Russian>
+				%1 защитили %2
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_prepareTimer">
+				<English>
+				Prepare %1:%2%3
+				</English>
+				<Russian>
+				Подготовка %1:%2%3
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_pushBoat">
+				<English>
+				Push Boat
+				</English>
+				<Russian>
+				Толкнуть Лодку
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_FTHUDEnable">
+				<English>
+				Enable Fireteam HUD
+				</English>
+				<Russian>
+				Включить Fireteam HUD
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_FTHUDDisable">
+				<English>
+				Disable Fireteam HUD
+				</English>
+				<Russian>
+				Отключить Fireteam HUD
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_teleBack">
+				<English>
+				You were teleported back to the spawn zone!\nPlease wait for countdown timer
+				</English>
+				<Russian>
+				Вы были телепортированы обратно!\nПожалуйста ожидайте окончания отсчета таймера
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_leavingZone">
+				<English>
+				You are leaving startup zone!\nBack off immediately!
+				</English>
+				<Russian>
+				Вы покидаете стартовую зону!\nПожалуйста вернитесь обратно!
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_slotUsed">
+				<English>
+				This slot is already reserved by %1!
+				</English>
+				<Russian>
+				Этот слот уже занят игроком %1!
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_slotReserved">
+				<English>
+				Now this slot is reserved for you!\nYou cant change slot until mission restart
+				</English>
+				<Russian>
+				Теперь этот слот зарезервирован на вас!\nВы не сможете занять другие до рестарта миссии
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_alreadyReserved">
+				<English>
+				You already have reserved slot: %1!
+				</English>
+				<Russian>
+				За вами уже закреплен слот: %1!
+				</Russian>
+			</Key>
+			<Key ID="STR_A3RU_freezeMethod">
+				<English>Vehicle freeze method</English>
+				<Russian>Метод заморозки техники</Russian>
+			</Key>
+			<Key ID="STR_A3RU_freezeMethod1">
+				<English>Oldstyle attach</English>
+				<Russian>Oldstyle attach</Russian>
+			</Key>
+			<Key ID="STR_A3RU_freezeMethod2">
+				<English>EH Method</English>
+				<Russian>EH Method</Russian>
+			</Key>
+			<Key ID="STR_A3RU_briefVehicles">
+				<English>Vehicles</English>
+				<Russian>Техника</Russian>
+			</Key>
+			<Key ID="STR_A3RU_briefUnits">
+				<English>Squads</English>
+				<Russian>Отряды</Russian>
+			</Key>
+			<Key ID="STR_A3RU_getDogTag">
+				<English>Take dog tag</English>
+				<Russian>Изучить жетон</Russian>
+			</Key>
+			<Key ID="STR_A3RU_noTagsFound">
+				<English>Somebody has taken his dog tag</English>
+				<Russian>Кто-то уже взял с него жетон</Russian>
+			</Key>
+			
+			<Key ID="STR_A3RU_externalAddonsInit">
+				<English>External A3A addons</English>
+				<Russian>Внешние A3A аддоны</Russian>
+			</Key>
+			<Key ID="STR_A3RU_enableDogTags">
+				<English>Dog tags</English>
+				<Russian>Жетоны с игроков</Russian>
+			</Key>
+			<Key ID="STR_A3RU_tagNoStand">
+				<English>You cant see anything while standing</English>
+				<Russian>Стоя вы ничего не можете разглядеть</Russian>
+			</Key>
+			<Key ID="STR_A3RU_enableLosses">
+				<English>Mission end on combat losses</English>
+				<Russian>Завершение миссии по потерям</Russian>
+			</Key>
+			<Key ID="STR_A3RU_drag_release">
+				<English>Release %1</English>
+				<Russian>Отпустить %1</Russian>
+			</Key>
+			<Key ID="STR_A3RU_drag_take">
+				<English>Drag %1</English>
+				<Russian>Перенести %1</Russian>
+			</Key>
+			<Key ID="STR_A3RU_drag_desc">
+				<English>&#60;img image="\A3A_Core\RESOURCES\a3a_drag_rotate_icon.paa"/&#62; &lt;t color="#CCFF33"&gt;[ROTATE OBJECT]&lt;/t&gt;&lt;br/&gt;&lt;t color="#00CC33"&gt;You can use &lt;/t&gt;&lt;t color="#00FF00"&gt;CTRL&lt;/t&gt;&lt;t color="#00CC33"&gt; + &lt;/t&gt;&lt;t color="#00FF00"&gt;Mouse Wheel&lt;/t&gt;&lt;t color="#00CC33"&gt; to rotate object!&lt;/t&gt;</English>
+				<Russian>&#60;img image="\A3A_Core\RESOURCES\a3a_drag_rotate_icon.paa"/&#62; &lt;t color="#CCFF33"&gt;[ВРАЩЕНИЕ ОБЪЕКТА]&lt;/t&gt;&lt;br/&gt;&lt;t color="#00CC33"&gt;Вы можете использовать &lt;/t&gt;&lt;t color="#00FF00"&gt;CTRL&lt;/t&gt;&lt;t color="#00CC33"&gt; + &lt;/t&gt;&lt;t color="#00FF00"&gt;Колесико Мыши&lt;/t&gt;&lt;t color="#00CC33"&gt; для вращения объекта!&lt;/t&gt;</Russian>
+		</Key>
+		<Key ID="STR_A3RU_UAC_Spectator_EndMission">
+				<English>[Spectator] Admin: End Mission (2x)</English>
+				<Russian>[Спектатор] Админ: Завершить Миссию (2x)</Russian>
+		</Key>
+		<Key ID="STR_A3RU_ZoneCaptured">
+			<English>Zone %1 captured by %2</English>
+			<Russian>Зона %1 под контролем %2</Russian>
+		</Key>
+		<Key ID="STR_A3RU_ZoneNeutral">
+			<English>Zone %1 is neutral</English>
+			<Russian>Зона %1 нейтральна</Russian>
+		</Key>
+		<Key ID="STR_A3RU_AllZonesCapturedBy">
+			<English>All zones captured by %1</English>
+			<Russian>Все зоны под контролем %1</Russian>
+		</Key>
+		<Key ID="STR_A3RU_ZonesDefendedBy">
+			<English>%1 defended zone</English>
+			<Russian>%1 удержали зону</Russian>
+		</Key>
+		<Key ID="STR_A3RU_spectatorLimit">
+			<English>Spectator limitations</English>
+			<Russian>Ограничения спектатора</Russian>
+		</Key>
+		<Key ID="STR_A3RU_killedBy">
+			<English>Killed by:</English>
+			<Russian>Вас убил:</Russian>
+		</Key>
+		<Key ID="STR_A3RU_UAC_Atrium">
+			<English>Atrium MPF</English>
+			<Russian>Платформа Атриум</Russian>
+		</Key>
+		<Key ID="STR_A3RU_UAC_WeaponSafety">
+			<English>Weapon safety</English>
+			<Russian>Предохранитель</Russian>
+		</Key>
+		<Key ID="STR_A3RU_UAC_Interaction">
+			<English>Interaction menu</English>
+			<Russian>Меню взаимодействия</Russian>
+		</Key>
+		<Key ID="STR_A3RU_Safety_On">
+			<English>Safety mode</English>
+			<Russian>Предохранитель поставлен</Russian>
+		</Key>
+		<Key ID="STR_A3RU_Safety_Off">
+			<English>Safety mode disabled</English>
+			<Russian>Предохранитель снят</Russian>
+		</Key>
+		
+		</Container>
+	</Package>
+</Project>
