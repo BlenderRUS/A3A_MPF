@@ -1,0 +1,70 @@
+LANGUAGE, English, Russian
+STR_A3A_Modules_Ending_Category,[A3A] Ending,[A3A] Завершение
+STR_A3A_Modules_Settings_Category,[A3A] Settings,[A3A] Настройки
+STR_A3A_Modules_EndMissionTimer,Mission end timer,Таймер на завершение миссии
+STR_A3A_Modules_EndMissionTimer_1_Name,End mission in XX minutes,Завершает миссию через XX минут
+STR_A3A_Modules_EndMissionTimer_1_Desc,Ends current mission in XX minutes with specified side win,Завершает миссию через XX минут с победой указанной стороны
+STR_A3A_Modules_EndMissionTimer_2_Name,Win side,Победит при завершении
+STR_A3A_Modules_EndMissionTimer_2_Desc,Side which will win when timer ends,"Сторона, которая победит при завершении миссии по таймеру"
+STR_A3A_Modules_EndMissionTimer_3_Name,Message,Сообщение
+STR_A3A_Modules_EndMissionTimer_3_Desc,Message when timer ends,"Сообщение, отображаемое при завершении миссии по таймеру"
+STR_A3A_Modules_EndMissionCapture,End on zone capture,Завершать по захвату зоны
+STR_A3A_Modules_EndMissionCapture_1_Name,Capture time (min),Время захвата (мин)
+STR_A3A_Modules_EndMissionCapture_1_Desc,Time in minutes needed to capture a zone,Время в минутах для захвата зоны
+STR_A3A_Modules_EndMissionCapture_2_Name,Hold time (min),Время удержания зоны (мин)
+STR_A3A_Modules_EndMissionCapture_2_Desc,Time needed to hold the zone after it has been captured,Время необходимое для удержания зоны после захвата
+STR_A3A_Modules_EndMissionCapture_3_Name,Marker name (!),Имя маркера
+STR_A3A_Modules_EndMissionCapture_3_Desc,Marker name which will be used as a cap/hold zone,Имя маркера который будет использоваться как зона действия
+STR_A3A_Modules_EndMissionCapture_4_Name,Zone name,Имя зоны
+STR_A3A_Modules_EndMissionCapture_4_Desc,Zone name to display in win message,Имя зоны для отображения при победе
+STR_A3A_Modules_EndMissionCapture_5_Name,Change marker color,Менять цвет маркера
+STR_A3A_Modules_EndMissionCapture_5_Desc,Changes marker color when capture status changes,Изменяет цвет маркера при смене статуса захвата
+STR_A3A_Modules_Yes,Yes,Да
+STR_A3A_Modules_No,No,Нет
+STR_A3A_Modules_EndMissionCapture_Capping,Capturing,Захват
+STR_A3A_Modules_EndMissionCapture_Holding,Holding,Удержание
+STR_A3A_Modules_EndMissionCapture_Equal,Equal units!,Равное количество!
+STR_A3A_Modules_EndMissionCountUnits,Min units in area,Минимальное кол-во в зоне
+STR_A3A_Modules_EndMissionCountUnits_1_Name,Marker name (!),Имя маркера
+STR_A3A_Modules_EndMissionCountUnits_1_Desc,Marker name which will be used as a zone,Имя маркера который будет использоваться как зона действия
+STR_A3A_Modules_EndMissionCountUnits_2_Name,Affected side,Сторона обороны
+STR_A3A_Modules_EndMissionCountUnits_2_Desc,Module affected side which will defend this area,Сторона обороняющая указанную зону
+STR_A3A_Modules_EndMissionCountUnits_3_Name,Minimum units,Минимум юнитов
+STR_A3A_Modules_EndMissionCountUnits_3_Desc,Minumum number of units to defend the area,Минимальное количество солдат для обороны зоны
+STR_A3A_Modules_EndMissionCountUnits_4_Name,Lose message,Сообщение при проигрыше
+STR_A3A_Modules_EndMissionCountUnits_4_Desc,Message to display if defenders fails,Сообщение для отображения в случае поражения обороны
+STR_A3A_Modules_EndMissionDeadInZone,Alive units in area,Живые объекты в зоне
+STR_A3A_Modules_EndMissionDeadInZone_1_Name,Marker name (!),Имя маркера
+STR_A3A_Modules_EndMissionDeadInZone_1_Desc,Marker name which will be used as a zone for synced objects,Имя маркера который будет использоваться как зона действия для синхронизированных объектов
+STR_A3A_Modules_EndMissionDeadInZone_2_Name,Minimum units,Минимум юнитов
+STR_A3A_Modules_EndMissionDeadInZone_2_Desc,Minimum number of units/objects in zone (0 - everyone should be alive),Минимальное количество юнитов/объектов в зоне (0 - все должны быть живые)
+STR_A3A_targetsKilled,All targets has been destroyed in: %1,Все цели были ликвидированы в зоне: %1
+STR_A3A_Modules_CombatLosses,Combat losses,Допустимые потери
+STR_A3A_Modules_CombatLosses_1_Name,BLUEFOR Side Loss,Потери BLUEFOR
+STR_A3A_Modules_CombatLosses_1_Desc,Minimum percent of remaining forces (ex.: value 40 will allow to lose 60 units from 100),Минимальный процент живой силы (напр. значение 40 позволит потерять 60 солдат из 100)
+STR_A3A_Modules_CombatLosses_2_Name,OPFOR Side Loss,Потери OPFOR
+STR_A3A_Modules_CombatLosses_2_Desc,Minimum percent of remaining forces (ex.: value 40 will allow to lose 60 units from 100),Минимальный процент живой силы (напр. значение 40 позволит потерять 60 солдат из 100)
+STR_A3A_Modules_CombatLosses_3_Name,Sides supremacy,Превосходство сторон
+STR_A3A_Modules_CombatLosses_3_Desc,When one side have a numerous supremacy on another (SIDE1 * SUPREMACY < SIDE2) 0-Disabled,Когда одна сторона превосходит по количеству другую (СТОР1 * ПРЕВОСХ < СТОР2) 0-Отключено
+STR_A3A_Modules_NoFreezeVehicles,No freeze vehicles,Не удерживать технику на фризе
+STR_A3A_Modules_DefendedZones,%1 captured & defended all zones!,%1 захватили и удержали все зоны!
+STR_A3A_Modules_DefendedZone,%1 defended %2,%1 полностью захватили %2
+STR_A3A_Modules_DontRemoveAI,Dont remove AI,Не удалять ИИ
+STR_A3A_Modules_FreezeVehiclesTimer,Freeze vehicles timer,Заморозить технику на время
+STR_A3A_Modules_FreezeVehiclesTimer_1_name,Freeze time in minutes,Время заморозки в минутах
+STR_A3A_Modules_FreezeVehiclesTimer_1_desc,Freezes vehicle's engine for XX minutes after mission start,Замораживает синхронизированную технику на XX минут после старта
+STR_A3A_Modules_FreezeVehiclesTimer_2_name,Show message to:,Отображать сообщение:
+STR_A3A_Modules_FreezeVehiclesTimer_2_desc,Show message when vehicles could be used to specified side,Отображать сообщение о возможности использования техники определенной стороне
+STR_A3A_Modules_FreezeVehiclesTimer_3_name,Message,Сообщение
+STR_A3A_Modules_FreezeVehiclesTimer_3_desc,Message to show,Сообщение для отображения
+STR_A3A_Modules_FreezeVehiclesTimer_NoMessage,NO ONE,НИКОМУ
+STR_A3A_Modules_FreezeVehiclesTimer_GlobalMessage,EVERYONE,ВСЕМ
+STR_A3A_Modules_WriteToDiary,Show in player's diary,Отображать в брифинге
+STR_A3A_Modules_WriteToDiary_Desc,Show module and its parameters in player's diary,Отображать модуль и его настройки в брифинге
+STR_A3A_Modules_Diary,Conditions,Условности
+STR_A3A_Modules_Diary_Timer,<img image='\A3A_Modules\Resources\timer.paa' width=12 height=12/> <font size='13'>MISSION END TIMER</font><br/>Mission time: <font color='#ffff00'>%1</font> minutes<br/>Timer win side: <font color='#ffff00'>%2</font>,<img image='\A3A_Modules\Resources\timer.paa' width=12 height=12/> <font size='13'>ТАЙМЕР НА ЗАВЕРШЕНИЕ МИССИИ</font><br/>Время на задание: <font color='#ffff00'>%1</font> минут<br/>Победа по завершению: <font color='#ffff00'>%2</font>
+STR_A3A_Modules_Diary_CombatLosses,<img image='\A3A_Modules\Resources\comloss.paa' width=12 height=12/> <font size='13'>END ON COMBAT LOSSES</font><br/><font color='#ffff00'>%1</font> will retreat when less then <font color='#ffff00'>%2</font> percent of <font color='#ffff00'>%1</font> players will be alive<br/><font color='#ffff00'>%3</font> will retreat when less then <font color='#ffff00'>%4</font> percent of <font color='#ffff00'>%3</font> players will be alive<br/>Side supremacy: <font color='#ffff00'>%5</font>,<img image='\A3A_Modules\Resources\comloss.paa' width=12 height=12/> <font size='13'>ЗАВЕРШЕНИЕ ПО ПОТЕРЯМ</font><br/><font color='#ffff00'>%1</font> отступят при остатке живой силы менее <font color='#ffff00'>%2</font> процентов<br/><font color='#ffff00'>%3</font> отступят при остатке живой силы менее <font color='#ffff00'>%4</font> процентов<br/>Превосходство сторон: <font color='#ffff00'>%5</font>
+STR_A3A_Modules_Diary_EndMissionCapture,<img image='\A3A_Modules\Resources\capture.paa' width=12 height=12/> <font size='13'>END ON ZONE CAPTURE</font><br/>Zone: <marker name='%1'>%2</marker><br/>Capture time: <font color='#ffff00'>%3</font> minutes<br/>Hold time: <font color='#ffff00'>%4</font> minutes<br/>Change marker color: <font color='#ffff00'>%5</font>,<img image='\A3A_Modules\Resources\capture.paa' width=12 height=12/> <font size='13'>ЗАВЕРШЕНИЕ ПО ЗАХВАТУ ЗОНЫ</font><br/>Зона: <marker name='%1'>%2</marker><br/>Время захвата: <font color='#ffff00'>%3</font> минут<br/>Время удержания: <font color='#ffff00'>%4</font> минут<br/>Изменять цвет маркера: <font color='#ffff00'>%5</font>
+STR_A3A_Modules_Diary_EndMissionCountUnits,<img image='\A3A_Modules\Resources\countunits.paa' width=12 height=12/> <font size='13'>MINIMUM UNITS IN AREA</font><br/>Mission will end when less then <font color='#ffff00'>%1 %2</font> players will be in <marker name='%3'>[ZONE]</marker>,<img image='\A3A_Modules\Resources\countunits.paa' width=12 height=12/> <font size='13'>МИНИМАЛЬНОЕ КОЛИЧЕСТВО В ЗОНЕ</font><br/>Завершение миссии при нахождении в <marker name='%3'>[ЗОНЕ]</marker> менее <font color='#ffff00'>%1</font> игроков стороны <font color='#ffff00'>%2</font>
+STR_A3A_Modules_Diary_EndMissionDeadInZone,<img image='\A3A_Modules\Resources\deadinzone.paa' width=12 height=12/> <font size='13'>IMPORTANT TARGETS</font><br/>Mission will end if less than <font color='#ffff00'>%1</font> of <font color='#ffff00'>%2</font> important objects will be destroyed/killed in <marker name='%3'>%4</marker>,<img image='\A3A_Modules\Resources\deadinzone.paa' width=12 height=12/> <font size='13'>ВАЖНЫЕ ЦЕЛИ</font><br/>Не менее <font color='#ffff00'>%1</font> целей из <font color='#ffff00'>%2</font> должны уцелеть в зоне <marker name='%3'>%4</marker>
+STR_A3A_Modules_Diary_FreezeVehiclesTimer,<img image='\A3A_Modules\Resources\freezevehiclestimer.paa' width=12 height=12/> <font size='13'>FREEZE VEHICLES AFTER START</font><br/>Freeze for: <font color='#ffff00'>%1</font> minutes<br/>Vehicles list: <font color='#ffff00'>%2</font>,<img image='\A3A_Modules\Resources\freezevehiclestimer.paa' width=12 height=12/> <font size='13'>ЗАМОРОЗКА ТЕХНИКИ ПОСЛЕ СТАРТА</font><br/>Заморозить на: <font color='#ffff00'>%1</font> минут<br/>Список техники: <font color='#ffff00'>%2</font>
