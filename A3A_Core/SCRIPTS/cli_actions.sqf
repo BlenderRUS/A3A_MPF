@@ -2,7 +2,7 @@
 a3a_fnc_cli_action_endPrepare = {
 	a3a_var_srv_timerSkip = true;
 	publicVariableServer "a3a_var_srv_timerSkip";
-	[format[localize "STR_A3RU_adminStarted", name player], 0] spawn a3a_fnc_message;
+	[["STR_A3RU_adminStarted", name player], 0] spawn a3a_fnc_message;
 	"(ADMIN) End Prepare Time" spawn a3a_fnc_ui_Remove;
 	a3a_fnc_cli_action_endPrepare = nil;
 };

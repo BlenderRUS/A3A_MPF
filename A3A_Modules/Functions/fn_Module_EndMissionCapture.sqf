@@ -1,19 +1,33 @@
-private ["_module", "_units", "_random", "_BFSide", "_OFSide", "_zone", "_area", "_side", "_minMan", "_message", "_zonePos", "_vehCount", "_man", "_veh", "_manCount", "_modules_list"];
+#define MODULE_NAME "End Mission Capture"
+private ["_running", "_module", "_random", "_BFSide", "_OFSide", "_zone", "_area", "_side", "_minMan", "_message", "_zonePos", "_vehCount", "_man", "_veh", "_manCount", "_modules_list", "_captureSide", "_triggerSides"];
 
 _module = [_this,0,objNull,[objNull]] call BIS_fnc_param;
-_units = synchronizedObjects _module;
 
 ////// PARAMETERS //////
-_capTime = _module getVariable ["CapTime", nil];
-_holdTime = _module getVariable ["HoldTime", nil];
-_marker = _module getVariable ["MarkerName", nil];
-_areaName = _module getVariable ["AreaName", nil];
-_changeColor = _module getVariable ["ChangeMarkerColor", nil];
+_capTime = _module getVariable ["CapTime", -64];
+_holdTime = _module getVariable ["HoldTime", -64];
+_marker = _module getVariable ["MarkerName", -64];
+_areaName = _module getVariable ["AreaName", -64];
+_changeColor = _module getVariable ["ChangeMarkerColor", -64];
+_captureSide = _module getVariable ["CaptureSide", 0]; // 0 - everyone, 1 - west, 2 - east, 3 - resistance
 
 ////// CHECK PARAMETERS //////
-if (isNil "_capTime" || isNil "_holdTime" || isNil "_marker" || isNil "_areaName" || isNil "_changeColor") exitWith {
-	hint "[ATRIUM ERROR]: WRONG PARAMETERS NUMBER IN MODULE:\nZone Capture";
-	diag_log "[ATRIUM ERROR]: WRONG PARAMETERS NUMBER IN MODULE: Zone Capture";
+_errors = [MODULE_NAME,
+	[
+		["MARKER", _marker],
+		["MIN_MAX", _capTime, 0],
+		["MIN_MAX", _holdTime, 0],
+		["AREA NAME", _areaName],
+		["CHANGE COLOR", _changeColor]
+	]
+] call A3A_fnc_Modules_CheckConditions;
+if (_errors) exitWith {};
+
+_triggerSides = [WEST, EAST, RESISTANCE];
+switch (_captureSide) do {
+	case 1: { _triggerSides = [WEST] };
+	case 2: { _triggerSides = [EAST] };
+	case 3: { _triggerSides = [RESISTANCE] };
 };
 
 if (_changeColor == 0) then { _changeColor = false } else { _changeColor = true };
@@ -21,38 +35,14 @@ if (_changeColor == 0) then { _changeColor = false } else { _changeColor = true 
 _capTime = _capTime * 60;
 _holdTime = _holdTime * 60;
 
-// Check marker
-_zonePos = getMarkerPos _marker;
-if (_zonePos distance [0,0,0] < 10) exitWith {
-	hint "[ATRIUM ERROR]: WRONG MARKER NAME/POSITION IN MODULE:\nZone Capture";
-	diag_log "[ATRIUM ERROR]: WRONG MARKER NAME/POSITION IN MODULE: Zone Capture";
-};
-
-// Check correct hold / cap time settings
-if ((_holdTime < 60) && (_holdTime != 6) || (_capTime < 60) && (_capTime != 6)) exitWith {
-	hint "[ATRIUM ERROR]: WRONG HOLD/CAPTURE TIME IN MODULE:\nZone Capture";
-	diag_log "[ATRIUM ERROR]: WRONG HOLD/CAPTURE TIME IN MODULE: Zone Capture";
-};
-
-_module setVariable ["zoneStatus", [false, sideUnknown]];
-
-waitUntil {sleep 1.928; !isNil "a3a_var_started"};
-waitUntil {sleep 0.328; a3a_var_started};
+waitUntil { sleep 0.816; _module getVariable ["a3a_var_module_canProcess", false] };
+_var_mod_started = call a3a_fnc_srv_getMissionTime;
 
 _random = 4 + (random 1);
 
-_fnc_isPlayer =	if (count (allMissionObjects "A3A_DontRemoveAI") > 0) then { { true } } else { { isPlayer _unit } };
+_dontRemoveAI = (count (allMissionObjects "A3A_DontRemoveAI")) > 0;
 
-////// ADD SYNCED MODULES //////
-_modules_list = [];
-
-{
-	private "__finished";
-	__finished = _x getVariable ["zoneStatus", nil];
-	if !(isNil "__finished") then {
-		_modules_list SET [count _modules_list, _x];
-	};
-} forEach _units;
+_fnc_isPlayer =	if (_dontRemoveAI) then { { true } } else { { isPlayer _unit } };
 
 // Get sides
 _side_1 = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"));
@@ -64,7 +54,7 @@ _direction = markerDir _marker;
 
 // Create Trigger
 _triggerArea = [(markerSize _marker) select 0, (markerSize _marker) select 1, _direction, _rectangle];
-_trigger = createTrigger["EmptyDetector", _zonePos];
+_trigger = createTrigger["EmptyDetector", getMarkerPos _marker];
 _trigger setTriggerArea _triggerArea;
 _trigger setTriggerActivation["ANY", "PRESENT", false];
 _trigger setTriggerStatements["false", "", ""];
@@ -76,15 +66,16 @@ _fnc_getSupremacy = {
 	private ["_side_1_count", "_side_2_count", "_unitsInArea", "_unit"];
 	_side_1_count = 0;
 	_side_2_count = 0;
-	_unitsInArea = list _trigger;
+	_unitsInArea = (list _trigger) call A3A_fnc_Modules_GetCrewUnits;
 	
 	for "_i" from 0 to ((count _unitsInArea) - 1) do {
 		_unit = _unitsInArea select _i;
 		if (alive _unit && call _fnc_isPlayer) then {
-			if (side (group _unit) == _side_1) then {
+			_unitSide = side (group _unit);
+			if ((_unitSide == _side_1) && (_side_1 in _triggerSides)) then {
 				_side_1_count = _side_1_count + 1;
 			} else {
-				if (side (group _unit) == _side_2) then {
+				if ((_unitSide == _side_2) && (_side_2 in _triggerSides)) then {
 					_side_2_count = _side_2_count + 1;
 				};
 			};
@@ -106,25 +97,6 @@ _fnc_getSupremacy = {
 	};
 };
 
-_check_finished = {
-	if !((_module getVariable "zoneStatus") select 0) then {
-		_module setVariable ["zoneStatus", [true, _this]];
-		[format[localize "STR_A3A_Modules_DefendedZone", _this, _areaName], 2] call a3a_fnc_message;
-	};
-	_finish = true;
-	{
-		__finished = _x getVariable "zoneStatus";
-		if !(__finished select 0) exitWith {
-			_finish = false;
-		};
-		if ((__finished select 1) != _this) exitWith {
-			_finish = false;
-		};
-	} forEach _modules_list;
-	
-	_finish
-};
-
 _areaStatus = 0; // 0 - neutral, 1 - captured
 _areaControl = 0; // 0 - neutral, 1 - side 1, 2 - side 2
 _areaProgress = 0; // 0%-100%
@@ -132,7 +104,9 @@ _lastPresenceSide = -1;
 _lastPresenceTime = diag_tickTime;
 _lastMarkerSide = 0;
 
-while {true} do {
+_running = true;
+
+while {_running} do {
 	_supremacy = [] call _fnc_getSupremacy;
 	switch (_supremacy) do {
 		case -1: {
@@ -151,7 +125,7 @@ while {true} do {
 		case 0: {
 			// EQUAL FORCES
 			a3a_event_zoneCap = [_trigger, _triggerArea, 0, _areaProgress, _areaStatus, _areaName];
-			if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+			if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 			publicVariable "a3a_event_zoneCap";
 		};
 		case 1: {
@@ -168,38 +142,54 @@ while {true} do {
 							_areaStatus = 1;
 							_areaProgress = 0;
 							///
-							[format[localize "STR_A3A_capturedZone", _side_1, _areaName], 2] call a3a_fnc_message;
+							[["STR_A3A_Modules_CapturedZone", _side_1, _areaName], 2] call a3a_fnc_message;
 							a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, 99, 0, _areaName];
-							if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+							if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 							publicVariable "a3a_event_zoneCap";
 							///
+							if (_holdTime == 0) exitWith {
+								_running = false;
+								//** MODULE COMPLETION
+								_module setVariable ["a3a_var_module_stats", ["STR_A3A_Modules_EndMissionCapture", _side_1, _var_mod_started, call a3a_fnc_srv_getMissionTime]];
+								_module setVariable ["a3a_var_module_message", ["STR_A3A_Modules_EM_EndMissionCapture", _side_1, _areaName]];
+								_module setVariable ["a3a_var_module_isCompleted", true];
+								//// MODULE COMPLETION
+
+								_marker setMarkerAlpha 0.3;
+								deleteVehicle _trigger;
+							};
 						} else {
 							_areaProgress = _areaProgress + _progress;
 							///
 							a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, _areaProgress, _areaStatus, _areaName];
-							if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+							if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 							publicVariable "a3a_event_zoneCap";
 							///
 						};
 					} else {
 						_progress = (diag_tickTime - _lastPresenceTime) * 100 / _holdTime;
-						if ((_areaProgress + _progress) >= 100) then {
+						if ((_areaProgress + _progress) >= 100) exitWith {
+							_running = false;
 							_areaProgress = 100;
 							// SIDE 1 WINS!
-							///
-							//[format[localize "STR_A3A_defendedZone", _side_1, _areaName], _side_1] call a3a_fnc_endMission;
 							a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, 99, _areaStatus, _areaName];
-							if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+							if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 							publicVariable "a3a_event_zoneCap";
-							if (_side_1 call _check_finished) exitWith {
-								[format[localize "STR_A3A_Modules_DefendedZones", _side_1], _side_1] spawn a3a_fnc_endMission;
-							};
-							///
+							[["STR_A3A_Modules_DefendedZone", _side_1, _areaName], 2] call a3a_fnc_message;
+							
+							//** MODULE COMPLETION
+							_module setVariable ["a3a_var_module_stats", ["STR_A3A_Modules_EndMissionCapture", _side_1, _var_mod_started, call a3a_fnc_srv_getMissionTime]];
+							_module setVariable ["a3a_var_module_message", ["STR_A3A_Modules_EM_EndMissionCapture", _side_1, _areaName]];
+							_module setVariable ["a3a_var_module_isCompleted", true];
+							//// MODULE COMPLETION
+
+							_marker setMarkerAlpha 0.3;
+							deleteVehicle _trigger;
 						};
 						_areaProgress = _areaProgress + _progress;
 						///
 						a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, _areaProgress, _areaStatus, _areaName];
-						if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+						if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 						publicVariable "a3a_event_zoneCap";
 						///
 					};
@@ -214,16 +204,15 @@ while {true} do {
 							_areaStatus = 0;
 							_areaControl = 1;
 							_areaProgress = 0;
-							_module setVariable ["zoneStatus", [false, _side_1]];
-							[format[localize "STR_A3A_neutralizedZone", _side_1, _areaName], 2] call a3a_fnc_message;
+							[["STR_A3A_neutralizedZone", _side_1, _areaName], 2] call a3a_fnc_message;
 							a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, _areaProgress, 1, _areaName];
-							if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+							if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 							publicVariable "a3a_event_zoneCap";
 						} else {
 							_areaProgress = _areaProgress - _progress;
 							///
 							a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, _areaProgress, _areaStatus, _areaName];
-							if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+							if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 							publicVariable "a3a_event_zoneCap";
 							///
 						};
@@ -250,39 +239,54 @@ while {true} do {
 							_areaStatus = 1;
 							_areaProgress = 0;
 							///
-							[format[localize "STR_A3A_capturedZone", _side_2, _areaName], 2] call a3a_fnc_message;
+							[["STR_A3A_Modules_CapturedZone", _side_2, _areaName], 2] call a3a_fnc_message;
 							///
 							a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, 99, 0, _areaName];
-							if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+							if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 							publicVariable "a3a_event_zoneCap";
+							if (_holdTime == 0) exitWith {
+								_running = false;
+								//** MODULE COMPLETION
+								_module setVariable ["a3a_var_module_stats", ["STR_A3A_Modules_EndMissionCapture", _side_2, _var_mod_started, call a3a_fnc_srv_getMissionTime]];
+								_module setVariable ["a3a_var_module_message", ["STR_A3A_Modules_EM_EndMissionCapture", _side_2, _areaName]];
+								_module setVariable ["a3a_var_module_isCompleted", true];
+								//// MODULE COMPLETION
+
+								_marker setMarkerAlpha 0.3;
+								deleteVehicle _trigger;
+							};
 						} else {
 							_areaProgress = _areaProgress + _progress;
 							///
 							a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, _areaProgress, _areaStatus, _areaName];
-							if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+							if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 							publicVariable "a3a_event_zoneCap";
 							///
 						};
 					} else {
 						_progress = (diag_tickTime - _lastPresenceTime) * 100 / _holdTime;
-						if ((_areaProgress + _progress) >= 100) then {
+						if ((_areaProgress + _progress) >= 100) exitWith {
+							_running = false;
 							_areaProgress = 100;
 							// SIDE 2 WINS!
-							///
-							a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, 99, _areaStatus, _areaName];
-							if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+							a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, 100, _areaStatus, _areaName];
+							if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 							publicVariable "a3a_event_zoneCap";
-							if (_side_2 call _check_finished) exitWith {
-								[format[localize "STR_A3A_Modules_DefendedZones", _side_2], _side_2] spawn a3a_fnc_endMission;
-							};
-							///
+							[["STR_A3A_Modules_DefendedZone", _side_2, _areaName], 2] call a3a_fnc_message;
+							
+							//** MODULE COMPLETION
+							_module setVariable ["a3a_var_module_stats", ["STR_A3A_Modules_EndMissionCapture", _side_2, _var_mod_started, call a3a_fnc_srv_getMissionTime]];
+							_module setVariable ["a3a_var_module_message", ["STR_A3A_Modules_EM_EndMissionCapture", _side_2, _areaName]];
+							_module setVariable ["a3a_var_module_isCompleted", true];
+							//// MODULE COMPLETION
+
+							_marker setMarkerAlpha 0.3;
+							deleteVehicle _trigger;
 						};
 						_areaProgress = _areaProgress + _progress;
-						///
 						a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, _areaProgress, _areaStatus, _areaName];
-						if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+						if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 						publicVariable "a3a_event_zoneCap";
-						///
 					};
 				} else {
 					_lastPresenceSide = 2;
@@ -295,18 +299,17 @@ while {true} do {
 							_areaStatus = 0;
 							_areaControl = 2;
 							_areaProgress = 0;
-							_module setVariable ["zoneStatus", [false, _side_2]];
 							///
-							[format[localize "STR_A3A_neutralizedZone", _side_2, _areaName], 2] call a3a_fnc_message;
+							[["STR_A3A_Modules_NeutralizedZone", _side_2, _areaName], 2] call a3a_fnc_message;
 							a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, _areaProgress, 1, _areaName];
-							if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+							if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 							publicVariable "a3a_event_zoneCap";
 							///
 						} else {
 							_areaProgress = _areaProgress - _progress;
 							///
 							a3a_event_zoneCap = [_trigger, _triggerArea, _areaControl, _areaProgress, _areaStatus, _areaName];
-							if (!isDedicated) then { [] spawn a3a_fnc_module_ZoneCaptureVisual };
+							if (!isDedicated) then { [] spawn a3a_fnc_modules_ZoneCaptureVisual };
 							publicVariable "a3a_event_zoneCap";
 							///
 						};

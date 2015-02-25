@@ -15,10 +15,11 @@ if (!isNil "_array") then {
 	_leaders = [];
 	for "_i" from 0 to ((count _array) - 1) do
 	{
-		private ["_group", "_marker"];
+		private ["_group", "_marker", "_pos"];
 		_group = _array select ((count _array) - 1) - _i;
 		_marker = str(_group);
-		createMarkerLocal[_marker, getPos (leader _group)];
+		_pos = ((leader _group) getVariable ["A3A_var_teleportObject", [0, getPos (leader _group)]]) select 1;
+		createMarkerLocal[_marker, _pos];
 		_marker setMarkerShapeLocal "ICON";
 		_marker setMarkerTypeLocal "mil_dot";
 		_marker setMarkerTextLocal _marker;

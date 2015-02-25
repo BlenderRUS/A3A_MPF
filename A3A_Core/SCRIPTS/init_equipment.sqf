@@ -144,8 +144,7 @@ fnc_a3ru_weap_equip = {
 		};
 	}
 	forEach ((assignedItems _unit) + (items _unit));
-	
-	
+
 	////// BACKPACK //////
 	_bp_count = count a3ru_w_back;
 	_bp_index = a3ru_weapvar select 6;
@@ -209,7 +208,7 @@ fnc_a3ru_weap_equip = {
 	};
 	
 	/// ALWAYS IN LOWER REGISTER!!! ///
-	_itemsAsWeapons = ["binocular", "rangefinder", "agm_vector"];
+	_itemsAsWeapons = ["binocular", "rangefinder", "agm_vector", "laserdesignator"];
 	_noLinkItems = [
 		"toolkit",
 		// CSE

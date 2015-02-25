@@ -8,6 +8,7 @@ a3a_var_cli_preInit = false;
 a3a_var_cli_postInit = false;
 
 // ****************** FUNCTIONS INIT ******************
+/*
 a3a_fnc_getMessage = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_getMessage.sqf";
 a3a_fnc_getSide = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_getSide.sqf";
 a3a_fnc_message = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_message.sqf";
@@ -24,6 +25,12 @@ a3a_fnc_vehicleFreeze = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\f
 a3a_fnc_ratingControl = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_ratingControl.sqf";
 a3a_fnc_cli_spawnZoneRestriction = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_cli_spawnZoneRestriction.sqf";
 a3a_fnc_cli_getDogTag = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_cli_getDogTag.sqf";
+a3a_fnc_ConvertTime = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_convertTime.sqf";
+A3A_fnc_GetBFSide = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_GetBFSide.sqf";
+A3A_fnc_GetOFSide = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_GetOFSide.sqf";
+A3A_fnc_TeleportPlayer = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_TeleportPlayer.sqf";
+//a3a_fnc_cli_killBoard = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_cli_killBoard.sqf";
+*/
 // ----------------- FUNCTIONS INIT ------------------
 
 waitUntil { player == player };
@@ -60,12 +67,16 @@ if (a3a_param_externalAddons == 1) then {
 		};
 	};
 };
+"a3a_var_endMissionOnModule" addPublicVariableEventHandler { (_this select 1) spawn A3A_fnc_Modules_EM_Visual };
 
 enableRadio false;
 enableSentences false;
 enableEngineArtillery false;
 
-waitUntil { !isNil "a3a_var_started" || !(alive player)}; // Wait for init
+waitUntil { (!(isNil "a3a_var_started") && (missionNameSpace getVariable ["a3a_var_srv_randomized", false])) || !(alive player)}; // Wait for init
+
+/// TELEPORT PLAYER ON RANDOMIZED MODULE
+[] call A3A_fnc_TeleportPlayer;
 
 [] execVM "\A3A_Core\SCRIPTS\a3a_briefing.sqf";
 
@@ -75,8 +86,6 @@ waitUntil { time > 0 && (!isNull (findDisplay 46)) };
 
 // Set view distance
 setViewDistance (getNumber (MissionConfigFile >> "A3A_MissionParams" >> "viewDistance"));
-
-[] execVM "\A3A_Core\SCRIPTS\tfar_settings.sqf"; // TFAR Settings
 
 if !(alive player) exitWith {};
 
@@ -88,7 +97,7 @@ if (!isNull player && (a3a_param_slotReservation == 0)) then {
 };
 
 // Killer eventhandler
-_EHkilledIdx = player addEventHandler ["killed", { a3ru_var_myKiller = name (_this select 1); diag_log format["KILLED BY: %1", a3ru_var_myKiller] }];
+[] execVM "\A3A_Core\scripts\cli_killedList.sqf";
 
 a3a_var_key_interactionMenu = [221, false, false, false];
 ["a3a_var_key_interactionMenu", localize "STR_A3RU_UAC_Atrium", localize "STR_A3RU_UAC_Interaction", "Interaction"] call d_uac_fnc_registerKeyBindingVariable;
@@ -123,7 +132,7 @@ if (isNil "_playerSide") then { player setVariable ["A3A_PlayerSide", playerSide
 /// Parameters: (Integer) _sg
 _sg = getNumber (MissionConfigFile >> "A3A_MissionParams" >> "UAVIntro");
 if (_sg == 1 && !(a3a_var_started) && !(isServer)) then {
-	[getPos player, "ARMA3.RU UAV Intel // " + localize "STR_A3RU_MissionName" + " - " + (getText (missionConfigFile >> "onLoadName")), 110, 150, 0, 0, [["\a3\ui_f\data\map\markers\nato\b_inf.paa", [0.1, 0.5, 1, 0.78], getPos player, 1, 1, 0, name player, 0]] ] call BIS_fnc_establishingShot;
+	[getPos player, "ARMA3.RU UAV Intel // " + (getText (missionConfigFile >> "onLoadName")), 110, 150, 0, 0, [["\a3\ui_f\data\map\markers\nato\b_inf.paa", [0.1, 0.5, 1, 0.78], getPos player, 1, 1, 0, name player, 0]] ] call BIS_fnc_establishingShot;
 };
 
 /// Name: Prepare time countdown
@@ -133,7 +142,7 @@ if (_sg == 1 && !(a3a_var_started) && !(isServer)) then {
 [] spawn a3a_fnc_cli_counter;
 
 "a3ru_zoneCap" addPublicVariableEventHandler { (_this select 1) spawn a3a_fnc_pb_visual };
-"a3ru_event_zoneCap" addPublicVariableEventHandler { [] spawn a3ru_fnc_Module_ZoneCaptureVisual }; // Module zone cap event
+"a3a_event_zoneCap" addPublicVariableEventHandler { [] spawn a3a_fnc_Module_ZoneCaptureVisual }; // Module zone cap event
 
 /// Name: Init equipment
 /// Type: Function

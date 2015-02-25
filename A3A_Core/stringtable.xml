@@ -1,7 +1,11 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Project ID="Arma3">
 	<Package ID="Missions">
 		<Container ID="A3RU_Base">
+			<Key ID="STR_A3A_BriefVersion">
+				<English>%1&lt;br/&gt;&lt;br/&gt;A3A Core version: %2&lt;br/&gt;A3A Modules version: %3&lt;br/&gt;A3A Mission version: %4&lt;br/&gt;Framework Author: [SUB7]Blender</English>
+				<Russian>%1&lt;br/&gt;&lt;br/&gt;Версия платформы A3A: %2&lt;br/&gt;Версия модулей A3A: %3&lt;br/&gt;Версия миссии A3A: %4&lt;br/&gt;Автор платформы: [SUB7]Blender</Russian>
+			</Key>
 			<Key ID="STR_A3RU_startTime">
 				<English>
 				Time of the day
@@ -244,22 +248,6 @@
 				Ничего не выбрано
 				</Russian>
 			</Key>
-			<Key ID="STR_A3RU_leftZone">
-				<English>
-				%1 has left mission zone!
-				</English>
-				<Russian>
-				%1 покинул зону операции!
-				</Russian>
-			</Key>
-			<Key ID="STR_A3RU_isDead">VIP targets has been killed on %1!
-				<English>
-				%1 eliminated!
-				</English>
-				<Russian>
-				%1 уничтожен!
-				</Russian>
-			</Key>
 			<Key ID="STR_A3RU_targetsKilled">
 				<English>
 				All targets has been eliminated on %1!
@@ -274,14 +262,6 @@
 				</English>
 				<Russian>
 				Все цели были уничтожены!
-				</Russian>
-			</Key>
-			<Key ID="STR_A3RU_heavyLosses">
-				<English>
-				%1 had heavy losses. %2 WIN!
-				</English>
-				<Russian>
-				%1 понесли серьезные потери. Победа %2!
 				</Russian>
 			</Key>
 			<Key ID="STR_A3RU_adminStarted">
@@ -493,7 +473,6 @@
 			<English>Safety mode disabled</English>
 			<Russian>Предохранитель снят</Russian>
 		</Key>
-		
 		</Container>
 	</Package>
 </Project>

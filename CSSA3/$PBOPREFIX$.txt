@@ -1,0 +1,6 @@
+///////<HEADER>///////
+prefix=CSSA3
+Mikero=DePbo.dll
+Pbo Type is: Arma Addon
+Sha: 'FDF23F9E6A06CB5A1BFF8F88BBA55FB152767B5E'
+//////</HEADER>//////

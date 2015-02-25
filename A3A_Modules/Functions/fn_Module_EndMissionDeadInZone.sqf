@@ -1,39 +1,27 @@
-private ["_module", "_units", "_marker", "_areaName", "_minUnits", "_winSide", "_zonePos", "_side_1", "_side_2", "_rectangle", "_direction", "_trigger"];
+#define MODULE_NAME "End Mission Dead In Zone"
+private ["_module", "_units", "_marker", "_areaName", "_minUnits", "_winSide", "_zonePos", "_side_1", "_side_2", "_rectangle", "_direction", "_trigger", "_inListCheck"];
 _module = [_this,0,objNull,[objNull]] call BIS_fnc_param;
-_units = synchronizedObjects _module; //[_this,1,[],[[]]] call BIS_fnc_param;
+_units = (synchronizedObjects _module) call A3A_fnc_Modules_ExcludeModules;
 
 ////// PARAMETERS //////
-_marker = _module getVariable ["MarkerName", nil];
-_minUnits = _module getVariable ["MinUnits", nil];
-_areaName = _module getVariable ["AreaName", nil];
+_marker = _module getVariable ["MarkerName", -64];
+_minUnits = _module getVariable ["MinUnits", -64];
+_areaName = _module getVariable ["AreaName", -64];
 
-////// CHECK PARAMETERS //////
-if (isNil "_marker" || isNil "_minUnits" || isNil "_areaName") exitWith {
-	hint "[ATRIUM ERROR]: WRONG PARAMETERS NUMBER IN MODULE:\nDead In Zone";
-	diag_log "[ATRIUM ERROR]: WRONG PARAMETERS NUMBER IN MODULE: Dead In Zone";
-};
-
-if ((count _units) == 0) exitWith {
-	hint "[ATRIUM ERROR]: NO SYNCED UNITS IN MODULE:\nDead In Zone";
-	diag_log "[ATRIUM ERROR]: NO SYNCED UNITS IN MODULE: Dead In Zone";
-};
+_errors = [MODULE_NAME,
+	[
+		["MARKER", _marker],
+		["UNITS", _units],
+		["MIN_MAX", _minUnits, 0, count _units],
+		["AREA NAME", _areaName]
+	]
+] call A3A_fnc_Modules_CheckConditions;
+if (_errors) exitWith {};
 
 if (_minUnits == 0) then { _minUnits = count _units };
 
-if ((_minUnits < 0) || (_minUnits > (count _units))) exitWith {
-	hint "[ATRIUM ERROR]: WRONG MINIMUM UNITS VALUE IN MODULE:\nDead In Zone";
-	diag_log "[ATRIUM ERROR]: WRONG MINIMUM UNITS VALUE IN MODULE: Dead In Zone";
-};
-
-// Check marker
-_zonePos = getMarkerPos _marker;
-if (_zonePos distance [0,0,0] < 10) exitWith {
-	hint "[ATRIUM ERROR]: WRONG MARKER NAME/POSITION IN MODULE:\nDead In Zone";
-	diag_log "[ATRIUM ERROR]: WRONG MARKER NAME/POSITION IN MODULE: Dead In Zone";
-};
-
-waitUntil {sleep 1.928; !isNil "a3a_var_started"};
-waitUntil {sleep 0.328; a3a_var_started};
+waitUntil { sleep 0.816; _module getVariable ["a3a_var_module_canProcess", false] };
+_var_mod_started = call a3a_fnc_srv_getMissionTime;
 
 // Get sides
 _side_1 = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"));
@@ -44,7 +32,7 @@ _rectangle = if (markerShape _marker == "RECTANGLE") then { true } else { false 
 _direction = markerDir _marker;
 
 // Create Trigger
-_trigger = createTrigger["EmptyDetector", _zonePos];
+_trigger = createTrigger["EmptyDetector", getMarkerPos _marker];
 _trigger setTriggerArea[(markerSize _marker) select 0, (markerSize _marker) select 1, _direction, _rectangle];
 _trigger setTriggerActivation["ANY", "PRESENT", false];
 _trigger setTriggerStatements["false", "", ""];
@@ -69,14 +57,10 @@ _fnc_getName = {
 
 diag_log format["[A3A] Dead In Zone: %1 <> %2", _units, _minUnits];
 
+_inListCheck = []; // 2nd check for absent units (getIn/getOut vehicle bug related)
+
 while {true} do {
-	_unitsList = list _trigger;
-	for "_i" from 0 to ((count _unitsList) - 1) do {
-		_obj = _unitsList select _i;
-		if ((_obj isKindOf "LandVehicle") || (_obj isKindOf "Air") || (_obj isKindOf "Ship")) then {
-			_unitsList = _unitsList + (crew _obj);
-		};
-	};
+	_unitsList = (list _trigger) call A3A_fnc_Modules_GetCrewUnits;
 	_tempUnits = _units;
 	for "_i" from 0 to ((count _tempUnits) - 1) do {
 		_unit = _tempUnits select _i;
@@ -86,12 +70,21 @@ while {true} do {
 			if !(alive _unit) then {
 				_units = _units - [_unit];
 				_name = _unit call _fnc_getName;
-				[format[localize "STR_A3A_isDead", _name], 3] call a3a_fnc_message;
+				[["STR_A3A_Modules_isDead", _name], 3] call a3a_fnc_message;
 			} else {
 				if !(_unit in _unitsList) then {
-					_units = _units - [_unit];
-					_name = _unit call _fnc_getName;
-					[format[localize "STR_A3A_leftZone", _name], 1] call a3a_fnc_message;
+					if (_unit in _inListCheck) then {
+						_units = _units - [_unit];
+						_inListCheck = _inListCheck - [_unit];
+						_name = _unit call _fnc_getName;
+						[["STR_A3A_Modules_leftZone", _name], 1] call a3a_fnc_message;
+					} else {
+						_inListCheck pushBack _unit;
+					};
+				} else {
+					if (_unit in _inListCheck) then {
+						_inListCheck = _inListCheck - [_unit];
+					};
 				};
 			};
 		};
@@ -99,7 +92,11 @@ while {true} do {
 	
 	if (count _units < _minUnits) exitWith {
 		diag_log format["[A3A] End Mission Dead In Zone: %1 <> %2", _units, _minUnits];
-		[format[localize "STR_A3A_targetsKilled", _areaName], _winSide] call a3a_fnc_endMission;
+		//** MODULE COMPLETION
+		_module setVariable ["a3a_var_module_stats", ["STR_A3A_Modules_EndMissionDeadInZone", _winSide, _var_mod_started, call a3a_fnc_srv_getMissionTime]];
+		_module setVariable ["a3a_var_module_message", ["STR_A3A_Modules_EM_EndMissionDeadInZone", _areaName]];
+		_module setVariable ["a3a_var_module_isCompleted", true];
+		//// MODULE COMPLETION
 	};
 	sleep 5.863;
 };

@@ -79,18 +79,7 @@ if (isNull _display && !a3a_var_started) then {
 
 	while { !a3a_var_started } do {
 		
-		if (a3a_var_timeCorrection < 0) then
-		{
-			_minutes = 0;
-			_seconds = 0;
-		};
-		
-		_minutes = floor (a3a_var_timeCorrection / 60);
-		_seconds = floor (a3a_var_timeCorrection mod 60);
-		
-		if (_minutes < 10) then { _minutes = format["0%1", _minutes] };
-		if (_seconds < 10) then { _seconds = format["0%1", _seconds] };
-		_counterText ctrlSetText format["%1:%2", _minutes, _seconds];
+		_counterText ctrlSetText (a3a_var_timeCorrection call a3a_fnc_convertTime);
 		
 		if (!isNil "a3a_var_leadersArray") then {
 			_text_leaders_side_1 = "";

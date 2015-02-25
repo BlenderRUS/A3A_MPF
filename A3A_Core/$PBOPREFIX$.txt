@@ -1,0 +1,6 @@
+///////<HEADER>///////
+prefix=A3A_Core
+Mikero=DePbo.dll
+Pbo Type is: Arma Addon
+Sha: '8AEEB5790C640BF379FD763AB69DA3383CAE5EAC'
+//////</HEADER>//////

@@ -38,7 +38,7 @@ while {!a3a_var_started} do {
 for "_i" from 0 to ((count vehicles_engineEH) - 1) do {
 	_vehicle = vehicles_engineEH select _i;
 	if !(isNull _vehicle) then {
-		_eh = _vehicle getVariable "engineEH";
+		_eh = _vehicle getVariable ["engineEH", -1];
 		if (_eh != -1) then {
 			_vehicle removeEventHandler ["Engine", _eh];
 		};
@@ -46,11 +46,11 @@ for "_i" from 0 to ((count vehicles_engineEH) - 1) do {
 	};
 };
 
-if (!isNil "a3ru_var_forceVehiclesFreeze") then {
+if (!isNil "a3a_var_forceVehiclesFreeze") then {
 	vehicles_engineEH = [];
 	
-	for "_i" from 0 to ((count a3ru_var_forceVehiclesFreeze) - 1) do {
-		_vehicle = a3ru_var_forceVehiclesFreeze select _i;
+	for "_i" from 0 to ((count a3a_var_forceVehiclesFreeze) - 1) do {
+		_vehicle = a3a_var_forceVehiclesFreeze select _i;
 		_eh = _vehicle addEventHandler ["Engine",
 		{
 			_veh = _this select 0;
@@ -61,18 +61,27 @@ if (!isNil "a3ru_var_forceVehiclesFreeze") then {
 		}];
 		_vehicle setVariable ["engineEH", _eh, false];
 		vehicles_engineEH SET [count vehicles_engineEH, _vehicle];
-	};
-	waitUntil { sleep 1.517; isNil "a3ru_var_forceVehiclesFreeze" };
-	
-	for "_i" from 0 to ((count vehicles_engineEH) - 1) do {
-		_vehicle = vehicles_engineEH select _i;
-		if !(isNull _vehicle) then {
-			_eh = _vehicle getVariable "engineEH";
-			if (_eh != -1) then {
-				_vehicle removeEventHandler ["Engine", _eh];
-			};
-			_vehicle setVariable ["engineEH", nil, false];
+		if (local _vehicle) then {
+			player action ["engineoff", _vehicle];
 		};
+	};
+	while { true } do {
+		for "_i" from 0 to ((count vehicles_engineEH) - 1) do {
+			_vehicle = vehicles_engineEH select _i;
+			if !(_vehicle in a3a_var_forceVehiclesFreeze) then {
+				if !(isNull _vehicle) then {
+					_eh = _vehicle getVariable ["engineEH", -1];
+					if (_eh != -1) then {
+						_vehicle removeEventHandler ["Engine", _eh];
+					};
+					_vehicle setVariable ["engineEH", nil, false];
+				};
+				vehicles_engineEH SET [_i, -1];
+			};
+		};
+		vehicles_engineEH = vehicles_engineEH - [-1];
+		if ((count a3a_var_forceVehiclesFreeze) == 0) exitWith {};
+		sleep 1.219;
 	};
 };
 

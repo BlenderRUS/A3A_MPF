@@ -10,7 +10,7 @@ _trigger setTriggerActivation["ANY", "PRESENT", false];
 _trigger setTriggerStatements["false", "", ""];
 _trigger setTriggerTimeout [15, 15, 15, false];
 
-if (player in (list _trigger)) then {
+if (player in ((list _trigger) call A3A_fnc_Modules_GetCrewUnits)) then {
 	if (isNil "a3a_var_capVisualEnabled") then { a3a_var_capVisualEnabled = false };
 
 	if (!a3a_var_capVisualEnabled) then {
@@ -27,7 +27,7 @@ if (player in (list _trigger)) then {
 
 		_firstUpdate = true;
 		
-		while { player in (list _trigger) } do {
+		while { player in ((list _trigger) call A3A_fnc_Modules_GetCrewUnits) } do {
 			private ["_zoneOwner", "_zoneCapped", "_zoneStatus"];
 				if (a3a_event_zoneCap select 0 == _trigger) then {
 				_zoneOwner = a3a_event_zoneCap select 2; // Owner (0-neutral, 1-west, 2-east)

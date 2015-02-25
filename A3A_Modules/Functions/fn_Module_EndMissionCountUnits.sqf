@@ -1,31 +1,12 @@
-private ["_module", "_marker", "_side", "_minMan", "_message", "_zonePos", "_side_1", "_side_2", "_rectangle", "_direction", "_trigger"];
+#define MODULE_NAME "End Mission Count Units"
+private ["_module", "_marker", "_side", "_minMan", "_message", "_zonePos", "_side_1", "_side_2", "_rectangle", "_direction", "_trigger", "_checkVar"];
 _module = [_this,0,objNull,[objNull]] call BIS_fnc_param;
 
 ////// PARAMETERS //////
-_marker = _module getVariable ["MarkerName", nil];
-_side = _module getVariable ["Side", nil];
-_minMan = _module getVariable ["MinMan", nil];
-_message = _module getVariable ["Message", nil];
-
-////// CHECK PARAMETERS //////
-if (isNil "_marker" || isNil "_side" || isNil "_minMan" || isNil "_message") exitWith {
-	hint "[ATRIUM ERROR]: WRONG PARAMETERS NUMBER IN MODULE:\nCount Units";
-	diag_log "[ATRIUM ERROR]: WRONG PARAMETERS NUMBER IN MODULE: Count Units";
-};
-
-if (_minMan < 1) exitWith {
-	hint "[ATRIUM ERROR]: WRONG MINIMUM UNITS VALUE IN MODULE:\nCount Units";
-	diag_log "[ATRIUM ERROR]: WRONG MINIMUM UNITS VALUE IN MODULE: Count Units";
-};
-
-// Check marker
-_zonePos = getMarkerPos _marker;
-if (_zonePos distance [0,0,0] < 10) exitWith {
-	hint "[ATRIUM ERROR]: WRONG MARKER NAME/POSITION IN MODULE:\nCount Units";
-	diag_log "[ATRIUM ERROR]: WRONG MARKER NAME/POSITION IN MODULE: Count Units";
-};
-
-_fnc_isPlayer =	if (count (allMissionObjects "A3A_DontRemoveAI") > 0) then { { true } } else { { isPlayer _unit } };
+_marker = _module getVariable ["MarkerName", -64];
+_side = _module getVariable ["Side", -64];
+_minMan = _module getVariable ["MinMan", -64];
+_message = _module getVariable ["Message", -64];
 
 switch (_side) do {
 	case 0: { _side = WEST };
@@ -33,8 +14,20 @@ switch (_side) do {
 	case 2: { _side = RESISTANCE };
 };
 
-waitUntil {sleep 3.928; !isNil "a3a_var_started"};
-waitUntil {sleep 0.328; a3a_var_started};
+_errors = [MODULE_NAME,
+	[
+		["MARKER", _marker],
+		["MIN_MAX", _minMan, 1],
+		["MESSAGE", _message],
+		["SIDE_COMP", _side]
+	]
+] call A3A_fnc_Modules_CheckConditions;
+if (_errors) exitWith {};
+
+_fnc_isPlayer =	if (count (allMissionObjects "A3A_DontRemoveAI") > 0) then { { true } } else { { isPlayer _unit } };
+
+waitUntil { sleep 0.816; _module getVariable ["a3a_var_module_canProcess", false] };
+_var_mod_started = call a3a_fnc_srv_getMissionTime;
 
 // Get sides
 _side_1 = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"));
@@ -45,13 +38,15 @@ _rectangle = if (markerShape _marker == "RECTANGLE") then { true } else { false 
 _direction = markerDir _marker;
 
 // Create Trigger
-_trigger = createTrigger["EmptyDetector", _zonePos];
+_trigger = createTrigger["EmptyDetector", getMarkerPos _marker];
 _trigger setTriggerArea[(markerSize _marker) select 0, (markerSize _marker) select 1, _direction, _rectangle];
 _trigger setTriggerActivation["ANY", "PRESENT", false];
 _trigger setTriggerStatements["false", "", ""];
 _trigger setTriggerTimeout [15, 15, 15, false];
 
 waitUntil { sleep 0.159; _ls = list _trigger; !isNil "_ls" };
+
+_checkVar = 0; // 2nd check (getIn/getOut vehicle bug related) 0 - false, 1 - finish, 2 - finished
 
 while {true} do {
 	private ["_unitsList", "_manCount", "_enemyPresence", "_winSide"];
@@ -72,9 +67,23 @@ while {true} do {
 			};
 		};
 	};
-	if ((_manCount < _minMan) && _enemyPresence) exitWith {
-		_winSide = if (_side == _side_1) then { _side_2 } else { _side_1 };
-		[_message, _winSide] call a3a_fnc_endMission;
+	if ((_manCount < _minMan) && _enemyPresence) then {
+		if (_checkVar == 1) then {
+			_checkVar = 2;
+			_winSide = if (_side == _side_1) then { _side_2 } else { _side_1 };
+			
+			// MODULE COMPLETION
+			_module setVariable ["a3a_var_module_stats", ["STR_A3A_Modules_EndMissionCountUnits", _winSide, _var_mod_started, call a3a_fnc_srv_getMissionTime]];
+			if (_message != "") then {
+				_module setVariable ["a3a_var_module_message", ["STR_A3A_Modules_DummyMessage", _message]];
+			};
+			_module setVariable ["a3a_var_module_isCompleted", true];
+		} else {
+			_checkVar = 1;
+		};
+	} else {
+		_checkVar = 0;
 	};
+	if (_checkVar == 2) exitWith {};
 	sleep 5.213;
 };

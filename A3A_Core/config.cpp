@@ -6,9 +6,9 @@ class CfgPatches
 		weapons[]={};
 		requiredAddons[]={ "A3A_Modules" };
 		requiredVersion=1.38;
-		version = "1.03";
-		versionStr = "1.03";
-		versionAr[] = {1,0,3};
+		version = "1.2";
+		versionStr = "1.2";
+		versionAr[] = {1,2};
 		author[] = { "Blender" };
 		authorUrl = "http://www.arma3.ru";
    };
@@ -16,7 +16,17 @@ class CfgPatches
 
 #include "Dialogs\Dialogs.hpp"
 
+class CfgDebriefing
+{  
+	class A3A_End_1
+	{
+		title = "Mission Ended";
+		pictureBackground = "\A3A_Core\Resources\a3a_end_1.paa";
+	};
+};
+
 // DEFINE RSC TITLES BASE CLASSES
+class IGUIBack;
 class RscText;
 class RscStructuredText;
 class RscPicture;
@@ -27,3 +37,4 @@ class RscTitles {
 };
 
 #include "CfgSounds.hpp"
+#include "CfgFunctions.hpp"

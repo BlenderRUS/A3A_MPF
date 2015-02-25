@@ -3,6 +3,7 @@ a3a_var_srv_postInit = false;
 a3a_var_missionFinished = false;
 a3a_var_srv_startNow = false;
 a3a_var_started = false;
+a3a_var_srv_startTime = diag_tickTime;
 publicVariable "a3a_var_started";
 
 _script = [] execVM "\A3A_Core\SCRIPTS\setMissionParams.sqf";
@@ -26,6 +27,7 @@ if (a3a_param_externalAddons == 1) then {
 };
 
 // Functions
+/*
 a3a_fnc_getMessage = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_getMessage.sqf";
 a3a_fnc_getSide = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_getSide.sqf";
 a3a_fnc_message = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_message.sqf";
@@ -43,6 +45,11 @@ a3a_fnc_srv_counter_countVote = compile preprocessFileLineNumbers "\A3A_Core\FUN
 a3a_fnc_srv_counter = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_srv_counter.sqf";
 ////COUNTDOWN
 a3a_fnc_srv_startCleanUp = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_srv_startCleanUp.sqf";
+a3a_fnc_srv_getMissionTime = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_srv_getMissionTime.sqf";
+a3a_fnc_convertTime = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_convertTime.sqf";
+A3A_fnc_GetBFSide = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_GetBFSide.sqf";
+A3A_fnc_GetOFSide = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_GetOFSide.sqf";
+*/
 
 "a3a_var_endMission" addPublicVariableEventHandler {
 	_this = _this select 1;
@@ -94,5 +101,6 @@ a3a_fnc_srv_counter = nil; // * Clean function
 [] call a3a_fnc_srv_startCleanUp;
 a3a_fnc_srv_startCleanUp = nil; // * Clean function
 
+a3a_var_srv_startTime = diag_tickTime;
 a3a_var_started = true;
 publicVariable "a3a_var_started";

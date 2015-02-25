@@ -1,5 +1,4 @@
 // FUNCTIONS
-a3a_fnc_brief_collectModules = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_brief_collectModules.sqf";
 a3a_fnc_brief_vehMark = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_brief_vehMark.sqf";
 a3a_fnc_brief_vehMarkDelete = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_brief_vehMarkDelete.sqf";
 a3a_fnc_brief_addGroups = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_brief_addGroups.sqf";
@@ -7,7 +6,7 @@ a3a_fnc_brief_markGroups = compile preprocessFileLineNumbers "\A3A_Core\FUNCTION
 a3a_fnc_brief_markGroupsDelete = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_brief_markGroupsDelete.sqf";
 a3a_fnc_brief_writeBriefing = compile preprocessFileLineNumbers "\A3A_Core\FUNCTIONS\fn_brief_writeBriefing.sqf";
 
-[] call a3a_fnc_brief_collectModules;
+[] call A3A_fnc_Modules_CreateBriefing;
 
 if !(a3a_var_started) then {
 	private ["_firedEHIndex", "_startPos", "_markerSize", "_marker"];
