@@ -17,7 +17,7 @@ if !(a3a_var_started) then {
 		_startPos = getPos player;
 		player setVariable ["StartPos", _startPos, true];
 	};
-	_markerSize = getNumber (MissionConfigFile >> "A3A_MissionParams" >> "prepareZoneSize");
+	_markerSize = "PREPAREZONESIZE" call A3A_fnc_Modules_GetSettings;
 	_marker = "prepareZone";
 	createMarkerLocal[_marker, _startPos];
 	_marker setMarkerSizeLocal [_markerSize, _markerSize];

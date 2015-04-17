@@ -39,5 +39,11 @@ class CfgFunctions
 			class cli_GetDogTag {};
 			class TeleportPlayer {};
 		};
+		class ViewDistance {
+			file = "\A3A_Core\VIEWDISTANCE";
+			class ViewDistance_CheckSet {};
+			class ViewDistance_Confirm {};
+			class ViewDistance {};
+		};
 	};
 };

@@ -425,10 +425,6 @@
 				<English>&#60;img image="\A3A_Core\RESOURCES\a3a_drag_rotate_icon.paa"/&#62; &lt;t color="#CCFF33"&gt;[ROTATE OBJECT]&lt;/t&gt;&lt;br/&gt;&lt;t color="#00CC33"&gt;You can use &lt;/t&gt;&lt;t color="#00FF00"&gt;CTRL&lt;/t&gt;&lt;t color="#00CC33"&gt; + &lt;/t&gt;&lt;t color="#00FF00"&gt;Mouse Wheel&lt;/t&gt;&lt;t color="#00CC33"&gt; to rotate object!&lt;/t&gt;</English>
 				<Russian>&#60;img image="\A3A_Core\RESOURCES\a3a_drag_rotate_icon.paa"/&#62; &lt;t color="#CCFF33"&gt;[ВРАЩЕНИЕ ОБЪЕКТА]&lt;/t&gt;&lt;br/&gt;&lt;t color="#00CC33"&gt;Вы можете использовать &lt;/t&gt;&lt;t color="#00FF00"&gt;CTRL&lt;/t&gt;&lt;t color="#00CC33"&gt; + &lt;/t&gt;&lt;t color="#00FF00"&gt;Колесико Мыши&lt;/t&gt;&lt;t color="#00CC33"&gt; для вращения объекта!&lt;/t&gt;</Russian>
 		</Key>
-		<Key ID="STR_A3RU_UAC_Spectator_EndMission">
-				<English>[Spectator] Admin: End Mission (2x)</English>
-				<Russian>[Спектатор] Админ: Завершить Миссию (2x)</Russian>
-		</Key>
 		<Key ID="STR_A3RU_ZoneCaptured">
 			<English>Zone %1 captured by %2</English>
 			<Russian>Зона %1 под контролем %2</Russian>
@@ -465,13 +461,29 @@
 			<English>Interaction menu</English>
 			<Russian>Меню взаимодействия</Russian>
 		</Key>
-		<Key ID="STR_A3RU_Safety_On">
-			<English>Safety mode</English>
-			<Russian>Предохранитель поставлен</Russian>
+		<Key ID="STR_A3A_ViewDistance_Action">
+			<English>View Distance</English>
+			<Russian>Дистанция Обзора</Russian>
 		</Key>
-		<Key ID="STR_A3RU_Safety_Off">
-			<English>Safety mode disabled</English>
-			<Russian>Предохранитель снят</Russian>
+		<Key ID="STR_A3A_ViewDistance_Label">
+			<English>[A3A] View Distance Settings</English>
+			<Russian>[A3A] Настройки Дальности Обзора</Russian>
+		</Key>
+		<Key ID="STR_A3A_ViewDistance_Infantry">
+			<English>Infantry</English>
+			<Russian>Пехота</Russian>
+		</Key>
+		<Key ID="STR_A3A_ViewDistance_Vehicles">
+			<English>Vehicles</English>
+			<Russian>Техника</Russian>
+		</Key>
+		<Key ID="STR_A3A_ViewDistance_Air">
+			<English>Air</English>
+			<Russian>Воздух</Russian>
+		</Key>
+		<Key ID="STR_A3A_ViewDistance_Max">
+			<English>Maximum : %1m</English>
+			<Russian>Максимум: %1м</Russian>
 		</Key>
 		</Container>
 	</Package>

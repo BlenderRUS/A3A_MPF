@@ -473,6 +473,24 @@ switch _mode do {
 		_alt = _this select 4;
 		_return = false;
 
+		if ([_key, _shift, _ctrl, _alt] isEqualTo CSSA3_var_key_endMission && (serverCommandAvailable "#kick" || isServer)) exitWith {
+			_time = 3;
+			if (isNil "CSSA3_var_lastEndKeyPress") then {
+				CSSA3_var_lastEndKeyPress = 0;
+			};
+			if ((diag_tickTime - CSSA3_var_lastEndKeyPress) <= _time) then {
+				if (isClass (missionConfigFile >> "A3A_MissionParams")) then {
+					format['Mission finished by admin: %1', name player] call A3A_fnc_EndMission;
+				} else {
+					"end1" call BIS_fnc_EndMission;
+				};
+			} else {
+				hint "PRESS AGAIN TO END MISSION!";
+				CSSA3_var_lastEndKeyPress = diag_tickTime;
+			};
+			true
+		};
+		
 		CSSA3_keys set [_key,true];
 
 		_cam = missionnamespace getvariable ["CSSA3_mainCamera",objnull];
@@ -532,10 +550,11 @@ switch _mode do {
 					_display displayctrl 3143,
 					_display displayctrl 79120,
 					_display displayctrl 791200,
-					_display displayctrl IDC_A3A_KILLBOARD_CG_KILLBOARD,
+					_display displayCtrl IDC_A3A_KILLBOARD_CG_KILLBOARD,
 					_display displayctrl CSSA3_unitListGroupIDC,
 					_display displayctrl CSSA3_mainDialogControlIDC
 				];
+
 				if (CSSA3_visibleHUD) then {
 					{_x ctrlShow false} count _ctrlOverlays;
 					(_display displayctrl 3142) ctrlenable false;

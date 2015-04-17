@@ -33,6 +33,7 @@ class CfgFunctions
 			class Modules_CheckConditions {};
 			class Modules_ObjectsRandomizer {};
 			class Modules_Dummy {};
+			class Modules_GetSettings {};
 		};
 	};
 };

@@ -29,7 +29,7 @@ a3a_fnc_cli_action_endPrepare = {
 	'(cursorTarget isKindOf "ship") && player distance cursorTarget < 7'
 ] call a3a_fnc_ui_add;
 
-_fireteamHUD = getNumber (MissionConfigFile >> "A3A_MissionParams" >> "fireteamHUD");
+_fireteamHUD = "FIRETEAMHUD" call A3A_fnc_Modules_GetSettings;
 if (_fireteamHUD == 1) then {
 	if (isClass (configFile >> "A3RU_PostInit_EventHandlers" >> "FireteamHUD")) then {
 		a3ru_FTHUD_disabled = true;

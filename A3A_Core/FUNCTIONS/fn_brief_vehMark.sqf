@@ -9,10 +9,10 @@ if !(a3a_var_started) then {
 	for "_i" from 0 to ((count _this) - 1) do {
 		_leader = _this select _i;
 		_leaderPos = (_leader getVariable ["A3A_var_teleportObject", [0, getPos _leader]]) select 1;
-		_zoneSize = getNumber (MissionConfigFile >> "A3A_MissionParams" >> "prepareZoneSize");
+		_zoneSize = "PREPAREZONESIZE" call A3A_fnc_Modules_GetSettings;
 		{
 			_vehPos = (_x getVariable ["A3A_var_teleportObject", [0, getPos _x]]) select 1;
-			if ((_vehPos distance _leaderPos) <= _zoneSize) then {
+			if (((_vehPos distance _leaderPos) <= _zoneSize) && !(_x in a3a_var_brief_vehArray)) then {
 				_marker = str(_x);
 				createMarkerLocal[_marker, _vehPos];
 				_marker setMarkerShapeLocal "ICON";

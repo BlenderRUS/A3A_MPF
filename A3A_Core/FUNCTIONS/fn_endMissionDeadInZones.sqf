@@ -8,8 +8,8 @@
 
 private ["_BFSide", "_OFSide", "_winSide", "_array", "_checkArray"];
 
-_BFSide = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"));
-_OFSide = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "opforSide"));
+_BFSide = "BFSIDE" call A3A_fnc_Modules_GetSettings;
+_OFSide = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 
 _array = _this;
 _checkArray = [];

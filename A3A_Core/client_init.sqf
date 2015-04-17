@@ -85,7 +85,7 @@ a3a_var_cli_postInit = true;
 waitUntil { time > 0 && (!isNull (findDisplay 46)) };
 
 // Set view distance
-setViewDistance (getNumber (MissionConfigFile >> "A3A_MissionParams" >> "viewDistance"));
+setViewDistance ("VIEWDISTANCE" call A3A_fnc_Modules_GetSettings);
 
 if !(alive player) exitWith {};
 
@@ -101,9 +101,6 @@ if (!isNull player && (a3a_param_slotReservation == 0)) then {
 
 a3a_var_key_interactionMenu = [221, false, false, false];
 ["a3a_var_key_interactionMenu", localize "STR_A3RU_UAC_Atrium", localize "STR_A3RU_UAC_Interaction", "Interaction"] call d_uac_fnc_registerKeyBindingVariable;
-
-a3a_var_key_specator_endMission = [221, true, true, false];
-["a3a_var_key_specator_endMission", localize "STR_A3RU_UAC_Atrium", localize "STR_A3RU_UAC_Spectator_EndMission", "EndMission"] call d_uac_fnc_registerKeyBindingVariable;
 
 a3a_UI_array = [];
 a3a_UI_DEH = (findDisplay 46) displayAddEventHandler ["KeyDown", "_this call a3a_fnc_onKeyDown"];
@@ -130,8 +127,8 @@ if (isNil "_playerSide") then { player setVariable ["A3A_PlayerSide", playerSide
 /// Type: Logic
 /// Description: Shows introduction on prepare time when player joins & intro parameter is set in mission config
 /// Parameters: (Integer) _sg
-_sg = getNumber (MissionConfigFile >> "A3A_MissionParams" >> "UAVIntro");
-if (_sg == 1 && !(a3a_var_started) && !(isServer)) then {
+_uavIntro = "UAVINTRO" call A3A_fnc_Modules_GetSettings;
+if ((_uavIntro == 1) && !(a3a_var_started) && !isServer) then {
 	[getPos player, "ARMA3.RU UAV Intel // " + (getText (missionConfigFile >> "onLoadName")), 110, 150, 0, 0, [["\a3\ui_f\data\map\markers\nato\b_inf.paa", [0.1, 0.5, 1, 0.78], getPos player, 1, 1, 0, name player, 0]] ] call BIS_fnc_establishingShot;
 };
 
@@ -155,6 +152,8 @@ if (_sg == 1 && !(a3a_var_started) && !(isServer)) then {
 /// Description: Enable artillery engine for mortars after start
 /// Parameters: None
 [] spawn { waitUntil { sleep 3.137; a3a_var_started }; enableEngineArtillery true };
+
+[] spawn { call compile preprocessFileLineNumbers "\A3A_Core\VIEWDISTANCE\viewDistance_init.sqf" };
 
 [] spawn { call compile preprocessFileLineNumbers "\A3A_Core\SCRIPTS\cli_actions.sqf" };
 

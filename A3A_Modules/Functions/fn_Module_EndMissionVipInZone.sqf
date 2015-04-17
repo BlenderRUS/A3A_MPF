@@ -10,8 +10,8 @@ _side = _module getVariable ["Side", -64];
 _winSide = _module getVariable ["WinSide", -64];
 
 // Get sides
-_side_1 = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"));
-_side_2 = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "opforSide"));
+_side_1 = "BFSIDE" call A3A_fnc_Modules_GetSettings;
+_side_2 = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 
 switch (_winSide) do {
 	case 0: { _winSide = WEST };

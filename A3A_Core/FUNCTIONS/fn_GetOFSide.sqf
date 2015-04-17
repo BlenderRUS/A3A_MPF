@@ -1,3 +1,3 @@
 private "_return";
-_return = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "opforSide"));
+_return = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 _return

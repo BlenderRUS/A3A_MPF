@@ -18,12 +18,12 @@ _cam = missionnamespace getvariable "CSSA3_mainCamera";
 if (CSSA3_visibleHUD) then {
 	//Define variables.
 	_fadeStart = 20;
-	_fadeEnd = 800;
+	_fadeEnd = 1500;
 	_iconColour = [0.251,0.251,0.251,1];
 	_nameText = "";
 	_iconSize = [0,0];
 
-	if (CSSA3_settings select 1 == 1) then {_iconSize = [0.8,0.8]};
+	if (CSSA3_settings select 1 == 1) then {_iconSize = [0.4,0.4]};
 	{
 		if ((alive _x) && {_cam distance _x < _fadeEnd}) then {
 
@@ -39,7 +39,15 @@ if (CSSA3_visibleHUD) then {
 			_pos = visiblePositionASL _x;
 			_pos set [2, (_x modelToWorld [0,0,2.3]) select 2];
 			_distance = _pos distance _cam;
-			_icon = ["\A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\whitedot_ca.paa",_iconColour,_pos,_iconSize select 0,_iconSize select 1,0,_nameText,0, ((0.16 / (_distance max 0.01)) * 2) min 0.08];
+			_textSize = 0;
+			switch (true) do {
+				case (_distance > 500): { _textSize = 0.02; };
+				case (_distance > 200): { _textSize = 0.04; };
+				case (_distance > 50): { _textSize = 0.05; };
+				case (_distance > 0): { _textSize = 0.08 };
+			};
+			
+			_icon = ["\A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\whitedot_ca.paa",_iconColour,_pos,_iconSize select 0,_iconSize select 1,0,_nameText,0, _textSize];
 			if (count _icon > 0) then {
 				_show3D = true;
 				if (_show3D) then {

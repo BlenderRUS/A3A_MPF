@@ -1,5 +1,40 @@
 waitUntil { !isNil "a3a_var_modules_order" };
 
+_settingsModules = allMissionObjects "A3A_Settings";
+if (count _settingsModules > 0) then {
+	private ["_fnc_getSide", "_fnc_getBoolNum", "_modules", "_diary", "_param_1", "_param_2", "_param_3", "_param_4", "_param_5", "_param_6", "_param_7", "_param_8", "_param_9"];
+	_fnc_getSide = {
+		private "_side";
+		_side = "UNKNOWN";
+		switch _this do {
+			case "EAST": { _side = localize "STR_A3A_Modules_West" };
+			case "WEST": { _side = localize "STR_A3A_Modules_East" };
+			case "RESISTANCE": { _side = localize "STR_A3A_Modules_Resistance" };
+		};
+		_side
+	};
+	_fnc_getBoolNum = {	if (_this isEqualTo 0) then { localize "STR_A3A_Modules_No" } else { localize "STR_A3A_Modules_Yes" } };
+	_module = _settingsModules select 0;
+	_diary = _module getVariable ["Diary", true];
+	if (_diary) then {
+		//** PARAMETERS
+		_param_1 = (_module getVariable ["BFSide", "UNKNOWN"]) call _fnc_getSide;
+		_param_2 = (_module getVariable ["OFSide", "UNKNOWN"]) call _fnc_getSide;
+		_param_3 = _module getVariable ["PrepareZoneSize", 0];
+		_param_4 = (_module getVariable ["UAVIntro", 0]) call _fnc_getBoolNum;
+		_param_5 = (_module getVariable ["FireteamHUD", 0]) call _fnc_getBoolNum;
+		_param_6 = _module getVariable ["ViewDistance", 0];
+		_param_7 = (_module getVariable ["NoClientViewDistance", 0]) call _fnc_getBoolNum;
+		_param_8 = (_module getVariable ["DaytimeNVG", 0]) call _fnc_getBoolNum;
+		_param_9 = (_module getVariable ["EquipmentDialog", 0]) call _fnc_getBoolNum;
+		//** PARAMETERS
+		player createDiaryRecord ["diary", [
+			localize "STR_A3A_Modules_Diary_Settings_Title",
+			format[localize "STR_A3A_Modules_Diary_Settings", _param_1, _param_2, _param_3, _param_4, _param_5, _param_6, _param_7, _param_8, _param_9]
+		]];
+	};
+};
+
 _fnc_getModuleInfo = {
 	private ["_module", "_return", "_diary", "_param_1", "_param_2", "_param_3", "_param_4", "_param_5", "_param_6"];
 	_module = _this;
@@ -74,9 +109,9 @@ _fnc_getModuleInfo = {
 			_diary = _module getVariable ["Diary", true];
 			if (_diary) then {
 				//** PARAMETERS
-				_param_1 = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"));
+				_param_1 = "BFSIDE" call A3A_fnc_Modules_GetSettings;
 				_param_2 = _module getVariable ["BFSideLoss", nil];
-				_param_3 = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "opforSide"));
+				_param_3 = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 				_param_4 = _module getVariable ["OFSideLoss", nil];
 				_param_5 = _module getVariable ["SideSupremacy", nil];
 				if (_param_5 <= 0) then { _param_5 = localize "STR_A3A_Modules_Disabled" };

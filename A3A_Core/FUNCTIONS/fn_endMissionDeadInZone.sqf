@@ -5,8 +5,8 @@
 
 private ["_BFSide", "_OFSide", "_zone", "_area", "_area_name", "_units", "_unitsInZone", "_winSide", "_zonePos", "_inZone", "_action", "_name"];
 
-_BFSide = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"));
-_OFSide = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "opforSide"));
+_BFSide = "BFSIDE" call A3A_fnc_Modules_GetSettings;
+_OFSide = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 
 _zone = _this select 0;
 _area = _this select 1; 

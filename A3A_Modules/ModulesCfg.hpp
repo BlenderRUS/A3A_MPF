@@ -31,4 +31,5 @@ class CfgVehicles
 	#include "CfgModules\A3A_ExternalFile.hpp"
 	#include "CfgModules\A3A_ObjectsRandomizer.hpp"
 	#include "CfgModules\A3A_EndMissionEscapeFromZone.hpp"
+	#include "CfgModules\A3A_Settings.hpp"
 };

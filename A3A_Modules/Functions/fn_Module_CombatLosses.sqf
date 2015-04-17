@@ -24,8 +24,8 @@ _var_mod_started = call a3a_fnc_srv_getMissionTime;
 if (_sideSupremacy < 0) then { _sideSupremacy = 0 };
 
 // Combat losses
-_BFSide = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"));
-_OFSide = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "opforSide"));
+_BFSide = "BFSIDE" call A3A_fnc_Modules_GetSettings;
+_OFSide = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 
 _a3a_lossUnits = if (isDedicated) then { playableUnits } else { allUnits };
 _BFstart = {(alive _x) && (side _x == _BFSide)} count _a3a_lossUnits;

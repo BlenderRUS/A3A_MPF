@@ -28,8 +28,8 @@ _change_colors = _this select 2;
 _defenders = _this select 3;
 _startTime = diag_tickTime;
 
-_BFSide = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"));
-_OFSide = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "opforSide"));
+_BFSide = "BFSIDE" call A3A_fnc_Modules_GetSettings;
+_OFSide = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 _BFSide_str = str _BFSide;
 _OFSide_str = str _OFSide;
 

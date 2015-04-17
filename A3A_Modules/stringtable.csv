@@ -14,6 +14,25 @@ STR_A3A_Modules_Every1,EVERYONE,ВСЕ
 STR_A3A_Modules_West,WEST,ЗАПАД
 STR_A3A_Modules_East,EAST,ВОСТОК
 STR_A3A_Modules_Resistance,RESISTANCE,СОПРОТИВЛЕНИЕ
+STR_A3A_Modules_Settings,Main Settings,Настройки Платформы
+STR_A3A_Modules_Settings_1_Name,BLUEFOR side,Сторона Синих
+STR_A3A_Modules_Settings_1_Desc,One of the key sides for modules,Одна из ключевых сторон для работы модулей
+STR_A3A_Modules_Settings_2_Name,OPFOR side,Сторона Красных
+STR_A3A_Modules_Settings_2_Desc,One of the key sides for modules,Одна из ключевых сторон для работы модулей
+STR_A3A_Modules_Settings_3_Name,Prepare zone size,Размер зоны подготовки
+STR_A3A_Modules_Settings_3_Desc,Prepare zone size for players (meters),Размер зоны подготовки для игроков (метры)
+STR_A3A_Modules_Settings_4_Name,UAV intro,Заставка БПЛА
+STR_A3A_Modules_Settings_4_Desc,Unmanned Aerial Vehicle introduction on mission start,Заставка с «Беспилотника» при старте миссии
+STR_A3A_Modules_Settings_5_Name,Fireteam HUD,Fireteam HUD
+STR_A3A_Modules_Settings_5_Desc,Enables Fireteam HUD (disabled if no FTHUD addon found),Включает Fireteam HUD (отключается если аддон отсутствует)
+STR_A3A_Modules_Settings_6_Name,View distance,Дистанция обзора
+STR_A3A_Modules_Settings_6_Desc,Maximum view distance player can set,Максимальная дистанция обзора для игроков
+STR_A3A_Modules_Settings_7_Name,No view distance dialog,Без диалога дистанции обзора
+STR_A3A_Modules_Settings_7_Desc,Clients can change view distance but not more then defined above,"Клиенты смогут устанавливать дистанцию обзора, но не выше установленной в опциях выше"
+STR_A3A_Modules_Settings_8_Name,Daytime NVG,ПНВ днем
+STR_A3A_Modules_Settings_8_Desc,Do not remove NVG from 04:30am to 06:00pm,Не удалять ПНВ с 04:30 до 18:00
+STR_A3A_Modules_Settings_9_Name,Equipment dialog,Диалог снаряжения
+STR_A3A_Modules_Settings_9_Desc,If dialog is disabled - players will get first equipment in their class template,Если диалог отключен - игроки получат первый набор снаряжения из настроек шаблона
 STR_A3A_Modules_EndMissionTimer,Mission timer,Таймер миссии
 STR_A3A_Modules_EndMissionTimer_1_Name,Complete module in XX minutes,Завершает модуль через XX минут
 STR_A3A_Modules_EndMissionTimer_1_Desc,Completes module in XX minutes with specified side win,Завершает работу модуля через XX минут с победой указанной стороны
@@ -118,6 +137,8 @@ STR_A3A_Modules_EndMissionEscapeFromZone_5_Name,Win side,Победит стор
 STR_A3A_Modules_EndMissionEscapeFromZone_5_Desc,Win side if minimum of required units will escape,"Победит сторона, минимальное количество юнитов которой покинет зону"
 STR_A3A_Modules_WriteToDiary,Show in player's diary,Отображать в брифинге
 STR_A3A_Modules_WriteToDiary_Desc,Show module and its parameters in player's diary,Отображать модуль и его настройки в брифинге
+STR_A3A_Modules_Diary_Settings_Title,Mission settings,Настройки миссии
+STR_A3A_Modules_Diary_Settings,<font size='13'>MISSION SETTINGS</font><br/><br/>BLUEFOR Side: <font color='#ffff00'>%1</font><br/>OPFOR Side: <font color='#ffff00'>%2</font><br/>Prepare Zone Size: <font color='#ffff00'>%3</font> meters<br/>UAV Intro: <font color='#ffff00'>%4</font><br/>Fireteam HUD: <font color='#ffff00'>%5</font><br/>ViewDistance: <font color='#ffff00'>%6</font><br/>No Client View Distance Dialog: <font color='#ffff00'>%7</font><br/>Daytime NVG: <font color='#ffff00'>%8</font><br/>Equipment Dialog: <font color='#ffff00'>%9</font>,<font size='13'>НАСТРОЙКИ МИССИИ</font><br/><br/>Сторона BLUEFOR: <font color='#ffff00'>%1</font><br/>Сторона OPFOR: <font color='#ffff00'>%2</font><br/>Зона подготовки: <font color='#ffff00'>%3</font> метров<br/>Заставка БПЛА: <font color='#ffff00'>%4</font><br/>Fireteam HUD: <font color='#ffff00'>%5</font><br/>Дистанция Обзора: <font color='#ffff00'>%6</font><br/>Игрок может менять дистанцию: <font color='#ffff00'>%7</font><br/>Раздавать ПНВ днем: <font color='#ffff00'>%8</font><br/>Диалог Снаряжения: <font color='#ffff00'>%9</font>
 STR_A3A_Modules_Diary,Conditions,Условности
 STR_A3A_Modules_Diary_Timer,<img image='\A3A_Modules\Resources\icon_endMissionTimer.paa' width=12 height=12/> <font size='13'>MISSION END TIMER</font><br/>Mission time: <font color='#ffff00'>%1</font> minutes<br/>Timer win side: <font color='#ffff00'>%2</font>,<img image='\A3A_Modules\Resources\icon_endMissionTimer.paa' width=12 height=12/> <font size='13'>ТАЙМЕР НА ЗАВЕРШЕНИЕ МИССИИ</font><br/>Время на задание: <font color='#ffff00'>%1</font> минут<br/>Победа по завершению: <font color='#ffff00'>%2</font>
 STR_A3A_Modules_Diary_CombatLosses,<img image='\A3A_Modules\Resources\icon_combatLosses.paa' width=12 height=12/> <font size='13'>END ON COMBAT LOSSES</font><br/><font color='#ffff00'>%1</font> will retreat when less then <font color='#ffff00'>%2</font> percent of <font color='#ffff00'>%1</font> players will be alive<br/><font color='#ffff00'>%3</font> will retreat when less then <font color='#ffff00'>%4</font> percent of <font color='#ffff00'>%3</font> players will be alive<br/>Side supremacy: <font color='#ffff00'>%5</font>,<img image='\A3A_Modules\Resources\icon_combatLosses.paa' width=12 height=12/> <font size='13'>ЗАВЕРШЕНИЕ ПО ПОТЕРЯМ</font><br/><font color='#ffff00'>%1</font> отступят при остатке живой силы менее <font color='#ffff00'>%2</font> процентов<br/><font color='#ffff00'>%3</font> отступят при остатке живой силы менее <font color='#ffff00'>%4</font> процентов<br/>Превосходство сторон: <font color='#ffff00'>%5</font>

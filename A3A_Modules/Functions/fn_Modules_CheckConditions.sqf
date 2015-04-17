@@ -12,8 +12,8 @@ for "_i" from 0 to ((count _conditions) - 1) do {
 		case "COUNT_SIDES": {
 			_finalString = _finalString + "<font color='#0000ff'>SIDE UNITS COUNT </font>";
 			_units = if (isDedicated) then { playableUnits } else { allUnits };
-			_side_1 = call A3A_fnc_GetBFSide;
-			_side_2 = call A3A_fnc_GetOFSide;
+			_side_1 = "BFSIDE" call A3A_fnc_Modules_GetSettings;
+			_side_2 = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 			
 			if (({ (side _x) == _side_1 } count _units) == 0) then {
 				_finalString = _finalString + "<font color='#ff0000'>ERROR, NO UNITS FOR *BLUEFOR* SIDE FOUND ON MAP!</font><br/>";
@@ -60,8 +60,8 @@ for "_i" from 0 to ((count _conditions) - 1) do {
 			_finalString = _finalString + "<font color='#0000ff'>SIDE COMPARE </font>";
 			_side = _condition select 1;
 			if ((typeName _side) == "SIDE") then {
-				_side_1 = call A3A_fnc_GetBFSide;
-				_side_2 = call A3A_fnc_GetOFSide;
+				_side_1 = "BFSIDE" call A3A_fnc_Modules_GetSettings;
+				_side_2 = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 				if ((_side != _side_1) && (_side != _side_2)) then {
 					_finalString = _finalString + "<font color='#ff0000'>ERROR, SIDE DOESNT EXIST IN MISSION_PARAMETERS.HPP</font><br/>";
 					_errorsFound = true;

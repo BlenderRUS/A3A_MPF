@@ -4,17 +4,19 @@ class CfgPatches
 	{
 		units[]={};
 		weapons[]={};
-		requiredAddons[]={ "A3A_Modules" };
+		requiredAddons[]={ "A3_UI_F", "A3A_Modules" };
 		requiredVersion=1.38;
-		version = "1.2";
-		versionStr = "1.2";
-		versionAr[] = {1,2};
+		version = "1.2.1";
+		versionStr = "1.2.1";
+		versionAr[] = {1,2,1};
 		author[] = { "Blender" };
 		authorUrl = "http://www.arma3.ru";
    };
 };
 
+#include "Dialogs\BaseClasses.h" // INIT RSC BASE CLASSES
 #include "Dialogs\Dialogs.hpp"
+#include "VIEWDISTANCE\Dialog.hpp"
 
 class CfgDebriefing
 {  
@@ -24,12 +26,6 @@ class CfgDebriefing
 		pictureBackground = "\A3A_Core\Resources\a3a_end_1.paa";
 	};
 };
-
-// DEFINE RSC TITLES BASE CLASSES
-class IGUIBack;
-class RscText;
-class RscStructuredText;
-class RscPicture;
 
 class RscTitles {
 	#include "Dialogs\Counter.hpp"

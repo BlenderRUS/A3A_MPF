@@ -5,8 +5,10 @@ class CfgPatches
 		units[] = {};
 		weapons[] = {};
 		requiredVersion = 0.1;
-		requiredAddons[] = { "A3_UI_F" };
-		version = "1.0";
+		requiredAddons[] = { "A3_UI_F", "d_uac" };
+		version = "1.1";
+		versionStr = "1.1";
+		versionAr[] = { 1, 1 };
 	};
 };
 
@@ -17,7 +19,6 @@ class CfgPatches
 
 class CfgRespawnTemplates
 {
-
 	class Spectator
 	{
 		onPlayerKilled = "";
@@ -27,4 +28,8 @@ class CfgRespawnTemplates
 	{
 		onPlayerRespawn = "CSSA3_fnc_init";
 	};
+};
+
+class Extended_PostInit_EventHandlers {
+	CSSA3_postinit = "[] execVM '\CSSA3\KeysSetup.sqf';";
 };

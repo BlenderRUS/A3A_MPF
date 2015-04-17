@@ -1,0 +1,2 @@
+CSSA3_var_key_endMission = [221, true, true, false];
+["CSSA3_var_key_endMission", localize "STR_CSSA3_UAC_Spectator", localize "STR_CSSA3_UAC_EndMission", "EndMission"] call d_uac_fnc_registerKeyBindingVariable;

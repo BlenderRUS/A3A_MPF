@@ -1,7 +1,7 @@
 private ["_BFSide", "_OFSide", "_ver"];
 
-_BFSide = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"));
-_OFSide = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "opforSide"));
+_BFSide = "BFSIDE" call A3A_fnc_Modules_GetSettings;
+_OFSide = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 switch (side player) do {
 	case _BFSide: {
 		player createDiaryRecord ["diary", [localize "STR_A3RU_Enemy", loadFile "A3A_BRIEFING\briefing_BLUEFOR_ENEMY.html"]];

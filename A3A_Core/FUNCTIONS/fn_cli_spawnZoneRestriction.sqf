@@ -1,7 +1,7 @@
 private ["_startPos", "_markerSize"];
 
 _startPos = player getVariable ["StartPos", nil];
-_markerSize = getNumber (MissionConfigFile >> "A3A_MissionParams" >> "prepareZoneSize");
+_markerSize = "PREPAREZONESIZE" call A3A_fnc_Modules_GetSettings;
 if (!isNil "_startPos") then {
 	while {alive player && !a3a_var_started} do {
 		private "_distance";

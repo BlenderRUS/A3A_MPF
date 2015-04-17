@@ -89,7 +89,7 @@ fnc_a3ru_weap_iter = {
 			};
 		};
 		if ((a3ru_weapvar select _this) == (count _b_slot) - 1) then {
-			ctrlSetText [_b_pic, "A3A_Core\RESOURCES\a3a_empty.paa"];
+			ctrlSetText [_b_pic, "\A3A_Core\RESOURCES\a3a_empty.paa"];
 			((findDisplay 1350) displayCtrl _b_pic) ctrlSetTooltip localize "STR_A3RU_weap_notsel";
 			hintSilent "";
 			if (_b_name != -1) then {
@@ -255,11 +255,9 @@ fnc_a3ru_weap_equip = {
 				} else {
 					if (_item in _nvGoggles) then {
 						_time = ((date select 3) * 60) + (date select 4);
-						_daytimeNVG = getNumber (MissionConfigFile >> "A3A_MissionParams" >> "daytimeNVG");
+						_daytimeNVG = "DAYTIMENVG" call A3A_fnc_Modules_GetSettings;
 						if ((_time >= 1080 || _time <= 270) || (_daytimeNVG == 1)) then {
 							_unit linkItem _item;
-						} else {
-							_unit addItem _item;
 						};
 					} else {
 						if (_item in _noLinkItems) then {
@@ -281,7 +279,7 @@ fnc_a3ru_weap_equip = {
 			} else {
 				if (ToLower _x in _nvGoggles) then {
 					_time = ((date select 3) * 60) + (date select 4);
-					_daytimeNVG = getNumber (MissionConfigFile >> "A3A_MissionParams" >> "daytimeNVG");
+					_daytimeNVG = "DAYTIMENVG" call A3A_fnc_Modules_GetSettings;
 					if ((_time >= 1080 || _time <= 270) || (_daytimeNVG == 1)) then {
 						_unit linkItem _x;
 					} else {
@@ -417,7 +415,7 @@ _a3ru_weap_dialog = {
 };
 
 a3ru_weapon_closeCode = false;
-if ((getNumber (MissionConfigFile >> "A3A_MissionParams" >> "equipmentDialog")) == 1) then {
+if (("EQUIPMENTDIALOG" call A3A_fnc_Modules_GetSettings) == 1) then {
 	while {!a3ru_weapon_closeCode} do {
 		call _a3ru_weap_dialog;
 		waitUntil { sleep 0.5; !dialog };

@@ -151,8 +151,8 @@ while {_running} do {
 	if (((count _units) + _zoneLeftUnits) < _minUnits) exitWith {
 		_running = false;
 		//** MODULE COMPLETION
-		_side_1 = [] call A3A_fnc_GetBFSide;
-		_side_2 = [] call A3A_fnc_GetOFSide;
+		_side_1 = "BFSIDE" call A3A_fnc_Modules_GetSettings;
+		_side_2 = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 		_winSide = if (_winSide isEqualTo _side_1) then { _side_2 } else { _side_1 };
 		_module setVariable ["a3a_var_module_stats", ["STR_A3A_Modules_EndMissionEscapeFromZone", _winSide, _var_mod_started, call a3a_fnc_srv_getMissionTime]];
 		_module setVariable ["a3a_var_module_message", ["STR_A3A_Modules_EM_EndMissionEscapeFromZone_2", _deadUnits, _totalUnits, _areaName]];
@@ -164,8 +164,8 @@ while {_running} do {
 		if ((diag_tickTime - _timerStarted) > _timeToEscape) exitWith {
 			_running = false;
 			//** MODULE COMPLETION
-			_side_1 = [] call A3A_fnc_GetBFSide;
-			_side_2 = [] call A3A_fnc_GetOFSide;
+			_side_1 = "BFSIDE" call A3A_fnc_Modules_GetSettings;
+			_side_2 = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 			_winSide = if (_winSide isEqualTo _side_1) then { _side_2 } else { _side_1 };
 			_module setVariable ["a3a_var_module_stats", ["STR_A3A_Modules_EndMissionEscapeFromZone", _winSide, _var_mod_started, call a3a_fnc_srv_getMissionTime]];
 			_module setVariable ["a3a_var_module_message", ["STR_A3A_Modules_EM_EndMissionEscapeFromZone_3", _areaName]];

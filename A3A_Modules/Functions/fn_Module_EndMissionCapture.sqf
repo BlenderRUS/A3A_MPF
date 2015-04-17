@@ -45,8 +45,8 @@ _dontRemoveAI = (count (allMissionObjects "A3A_DontRemoveAI")) > 0;
 _fnc_isPlayer =	if (_dontRemoveAI) then { { true } } else { { isPlayer _unit } };
 
 // Get sides
-_side_1 = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"));
-_side_2 = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "opforSide"));
+_side_1 = "BFSIDE" call A3A_fnc_Modules_GetSettings;
+_side_2 = "OFSIDE" call A3A_fnc_Modules_GetSettings;
 
 // Marker Shape
 _rectangle = if (markerShape _marker == "RECTANGLE") then { true } else { false };

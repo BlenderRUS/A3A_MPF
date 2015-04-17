@@ -2,10 +2,10 @@ private "_side";
 switch (toLower _this) do {
 	default { _side = WEST };
 	case "bluefor": {
-		_side = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "blueforSide"))
+		_side = "BFSIDE" call A3A_fnc_Modules_GetSettings
 	};
 	case "opfor": {
-		_side = call compile (getText (MissionConfigFile >> "A3A_MissionParams" >> "opforSide"))
+		_side = "OFSIDE" call A3A_fnc_Modules_GetSettings
 	};
 };
 _side

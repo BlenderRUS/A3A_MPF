@@ -12,6 +12,7 @@ _this spawn {
 		_this = [_this];
 	};
 	[_this select 0, 2] call a3a_fnc_message;
+	if (isServer) then { Replay_var_srv_running = false }; // REPLAY SYSTEM FINISH
 	sleep 3;
 	if (count _this > 1) then {
 		a3a_var_endMission = _this select 1;
